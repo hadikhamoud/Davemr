@@ -77,7 +77,7 @@ class Initialize:
 #     inputSofar = ['']
 
 
-app = Flask(__name__, static_url_path='/', static_folder='Dave-frontend/build')
+app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/build')
 Init = Initialize()
 
 def getAccess():
@@ -305,6 +305,3 @@ def reset():
 def serve():
     return send_from_directory(app.static_folder,'index.html')
 
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
