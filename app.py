@@ -77,7 +77,7 @@ class Initialize:
 #     inputSofar = ['']
 
 
-app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/build')
+app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
 Init = Initialize()
 
 def getAccess():
