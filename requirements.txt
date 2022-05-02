@@ -25,7 +25,6 @@ protobuf==3.20.1
 pyOpenSSL
 pyspellchecker==0.6.3
 railroad==0.5.0
-spellchecker==0.4
 textblob==0.17.1
 toml==0.10.2
 tornado==6.1
