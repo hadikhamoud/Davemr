@@ -12,7 +12,6 @@ Flask==1.1.2
 HTMLParser==0.0.2
 ipython==8.3.0
 ipywidgets==7.6.5
-jamspell==0.0.12
 Jinja2==2.11.3
 jwcrypto
 keyring==23.1.0
