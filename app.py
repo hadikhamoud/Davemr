@@ -12,7 +12,7 @@ from getTop3Algo import gettextscore
 from pprint import pprint
 
 
-
+#procfile
 def InitializeDicts(Init):
     for file in os.listdir(Init.algodir):
         try:
