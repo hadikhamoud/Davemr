@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask import request
 # from flask_cors import CORS
 import requests
@@ -301,3 +301,6 @@ def reset():
     })
 
 # CORS(app)
+@app.route('/')
+def server():
+    return send_from_directory(app.static_folder)
