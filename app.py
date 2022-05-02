@@ -303,4 +303,4 @@ def reset():
 # CORS(app)
 @app.route('/')
 def server():
-    return send_from_directory(app.static_folder)
+    return send_from_directory(app.static_folder,'index.html')
