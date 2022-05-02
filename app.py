@@ -78,7 +78,7 @@ class Initialize:
 
 
 app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
-Init = Initialize()
+
 
 def getAccess():
     clientId = "87d44646-b973-4b6c-bb81-55c255f27fad"
@@ -212,9 +212,9 @@ def Note():
     return jsonify({
         "elementss": elements,
         "Name": Init.Names[keys[-1]],
-        "Score":values[-1],
-        "Score1":values[-2],
-        "Score2":values[-3],
+        "Score":round(values[-1],2),
+        "Score1":round(values[-2],2),
+        "Score2":round(values[-3],2),
         "elementss1": elements1,
         "Name1": Init.Names[keys[-2]],
         "elementss2": elements2,
@@ -262,9 +262,9 @@ def RestOfNotes():
         "elementss2": elements2,
         "topNode2": topNode2,
         "Name2": Init.Names[keys[-6]],
-        "Score":values[-1],
-        "Score1":values[-2],
-        "Score2":values[-3],
+        "Score":round(values[-4],-2),
+        "Score1":round(values[-5],2),
+        "Score2":round(values[-6],2),
     })
 
 
@@ -307,4 +307,5 @@ def serve():
 
 
 if __name__ == "__main__":
+     Init = Initialize()
      app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
