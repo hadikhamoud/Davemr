@@ -3,7 +3,7 @@ from spellchecker import SpellChecker
 import json
 import os
 
-
+nltk.download('punkt')
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 MedicalFileR = open(os.path.join(CURRENT_DIR,'data/testdatahashmaps/MedicalTermsDict.txt'),'r')
