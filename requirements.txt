@@ -30,4 +30,4 @@ spellchecker==0.4
 textblob==0.17.1
 toml==0.10.2
 tornado==6.1
-xmlrpclib==1.0.1
+gunicorn==20.1.0
