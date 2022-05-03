@@ -10,6 +10,7 @@ import pandas as pd
 from cytotest import PandastoCyto
 from getTop3Algo import gettextscore
 from pprint import pprint
+from flask_talisman import Talisman
 
 
 #procfile
@@ -305,7 +306,8 @@ def reset():
 def serve():
     return send_from_directory(app.static_folder,'index.html')
 
+Talisman(app, content_security_policy=None)
 
 if __name__ == "__main__":
      Init = Initialize()
-     app.run(host='0.0.0.0', debug=False, port=os.environ.get('PORT', 80))
+     app.run(debug=False, port=os.environ.get('PORT', 5000))
