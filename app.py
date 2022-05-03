@@ -79,7 +79,7 @@ class Initialize:
 
 
 app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
-
+Init = Initialize()
 
 def getAccess():
     clientId = "87d44646-b973-4b6c-bb81-55c255f27fad"
@@ -309,5 +309,5 @@ def serve():
 Talisman(app, content_security_policy=None)
 
 if __name__ == "__main__":
-     Init = Initialize()
+     
      app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
