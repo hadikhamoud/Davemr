@@ -120,7 +120,7 @@ export const cytoscapeStylesheet = [
       selector: ".expandable",
       css: {
         "background-color":"#ffb6c1",
-        shape:"octagon",
+        shape:"round-rectangle",
         "border-color": "red",
         
   

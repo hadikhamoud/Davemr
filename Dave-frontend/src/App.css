@@ -17,9 +17,9 @@ body {
   position: relative;
   width: 100%;
   --primary-clr: #FFFFFF;
-  --background-clr : ##D3D3D3;
+  /* --background-clr : #e9ebf0; */
   --graph-btns-clr : #944f96;
-  --graph-btns-disabled:#944f96;
+  --graph-btns-disabled:hsl(300, 32%, 23%);
   --primary-clr-textbox: #944f96;
 
 }
@@ -189,7 +189,7 @@ h5{
  }
 
  .nav-png {
-  background-color: var(--primary-clr);
+  background-color: #944f96;
  }
 
   .graph-box-right__button-container {
@@ -229,7 +229,7 @@ h5{
 }
 .img-title {
   width:64px;
-  height:64px;
+  height:59px;
 }
 .img-text {
   width:100px;
@@ -257,8 +257,11 @@ img {
   
 }
 .epic{
-  background-image: url("./epic-logo-no-pad-flat.png") !important;
-  width: 98px !important;
+  background-image: url("./epic-systems-corporation-vector-logo.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 97px 73.5px;
+  background-position: center;
+  width: 97px !important;
   height: 36.5px !important;
 }
 .book{
@@ -313,12 +316,6 @@ h1 {
   position: absolute;
 }
 
-/* .legend-box {
-  position: absolute;
-  right:0;
-  bottom: 0;
-  z-index: 10;
-} */
 
 .legend-flex {
   display: flex;
@@ -328,11 +325,6 @@ h1 {
   right:0;
   bottom: 0;
   z-index: 10;
-}
-.row-instance {
-  display: flex;
-  flex-direction:row;
-  white-space: nowrap;
 }
  .legend-label {
   align-self: center !important;
@@ -385,7 +377,7 @@ li::before {
   }
   .legend-square-red::before {
     color:black;
-    background-color: red;
+    background-color: #cbc3e3;
       width: 1rem;
       height: 1rem;
       border-radius: 3px;
@@ -400,7 +392,7 @@ li::before {
 
 .legend-rhombus::before {
     color:black;
-    background-color: aqua;
+    background-color: lightblue;
     width: 1rem;
     height: 1rem;
     border-radius: 3px;
@@ -413,6 +405,13 @@ li::before {
       height: 1rem;
       border-radius: 3px;
   }
+  .legend-square-beige::before {
+    color:black;
+    background-color: beige;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 3px;
+}
 
 .custom-menu-item {
   border: none !important;

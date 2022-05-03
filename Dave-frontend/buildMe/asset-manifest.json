@@ -1,7 +1,7 @@
 {
-  "main.css": "/static/css/main.a84f5872.chunk.css",
-  "main.js": "/static/js/main.0576484d.chunk.js",
-  "main.js.map": "/static/js/main.0576484d.chunk.js.map",
+  "main.css": "/static/css/main.2b100565.chunk.css",
+  "main.js": "/static/js/main.a7d9ab1c.chunk.js",
+  "main.js.map": "/static/js/main.a7d9ab1c.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.df234ee7.js",
   "runtime~main.js.map": "/static/js/runtime~main.df234ee7.js.map",
   "static/css/2.67fcceee.chunk.css": "/static/css/2.67fcceee.chunk.css",
@@ -10,10 +10,10 @@
   "static/js/3.c39e5d51.chunk.js": "/static/js/3.c39e5d51.chunk.js",
   "static/js/3.c39e5d51.chunk.js.map": "/static/js/3.c39e5d51.chunk.js.map",
   "index.html": "/index.html",
-  "precache-manifest.104915c0a996fffde47c165875a142ed.js": "/precache-manifest.104915c0a996fffde47c165875a142ed.js",
+  "precache-manifest.4ce328ec5fd4d3bbb309b9828499912c.js": "/precache-manifest.4ce328ec5fd4d3bbb309b9828499912c.js",
   "service-worker.js": "/service-worker.js",
   "static/css/2.67fcceee.chunk.css.map": "/static/css/2.67fcceee.chunk.css.map",
-  "static/css/main.a84f5872.chunk.css.map": "/static/css/main.a84f5872.chunk.css.map",
+  "static/css/main.2b100565.chunk.css.map": "/static/css/main.2b100565.chunk.css.map",
   "static/media/Abdominal Pain.png": "/static/media/Abdominal Pain.b3a5d6ff.png",
   "static/media/Abnormal Vaginal Bleeding.png": "/static/media/Abnormal Vaginal Bleeding.887cb0a3.png",
   "static/media/Acute Gastrointestinal Bleeding.png": "/static/media/Acute Gastrointestinal Bleeding.8f573929.png",
@@ -123,6 +123,7 @@
   "static/media/Wheezing- Stridor.png": "/static/media/Wheezing- Stridor.6837b82a.png",
   "static/media/combinedBooks.jpeg": "/static/media/combinedBooks.943bb0ae.jpeg",
   "static/media/elevated alkaline phosphate.png": "/static/media/elevated alkaline phosphate.9c8af2a2.png",
+  "static/media/App.css": "/static/media/epic-systems-corporation-vector-logo.c60282b9.svg",
   "static/media/patientHistory.jpg": "/static/media/patientHistory.3eb138a0.jpg",
   "static/media/symptomToDiagnosis.jpg": "/static/media/symptomToDiagnosis.d005046d.jpg"
 }

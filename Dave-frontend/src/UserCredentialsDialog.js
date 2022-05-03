@@ -30,7 +30,7 @@ export default function UserCredentialsDialog({
                             image={img}
                             alt="Symptom To Diagnosis"
                         />
-                        <CardContent style={{ backgroundColor: '#c4a35a' }}>
+                        <CardContent style={{ backgroundColor: '#1E5288' }}>
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -43,7 +43,7 @@ export default function UserCredentialsDialog({
                             image={img1}
                             alt="Symptom To Diagnosis"
                         />
-                        <CardContent height={"50px"} style={{ backgroundColor: '#c4a35a' }}>
+                        <CardContent height={"50px"} style={{ backgroundColor: '#1E5288' }}>
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -56,7 +56,7 @@ export default function UserCredentialsDialog({
                             image={img2}
                             alt="Symptom To Diagnosis"
                         />
-                        <CardContent height={"50px"} style={{ backgroundColor: '#c4a35a' }}>
+                        <CardContent height={"50px"} style={{ backgroundColor: '#1E5288' }}>
                         </CardContent>
                     </CardActionArea>
                 </Card>
@@ -64,7 +64,7 @@ export default function UserCredentialsDialog({
                 <Button
                     color="primary"
                     variant="contained"
-                    style={{ backgroundColor: '#26495c' }}
+                    style={{ backgroundColor: '#944f96' }}
                     onClick={() => {onSubmit(bookselected);setBookSelected("")}}
                 >
                     {submitText}

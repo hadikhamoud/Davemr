@@ -52,7 +52,7 @@ cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 // nodeHtmlLabel(cytoscape);
 
-var SERVER_URL = "https://www.davemr.com/"
+var SERVER_URL = "https://davemr.com"
 
 
 function App() {
@@ -60,8 +60,9 @@ function App() {
   let [icon, setIcon] = useState(false);
   let [Notes, setNotes] = useState("");
   let [showText, setShowText] = useState(true);
+  let [legend, setLegend] = useState(false);
   let [more, setMore] = useState(false);
-  let [openPNG, setOpenPNG] = useState(false)
+  let [openPNG, setOpenPNG] = useState(false);
   let [book, setBook] = useState("hideChooseBook");
   let [bookChoice,setBookChoice] = useState("Book3");
   let [showGraph1, setShowGraph1] = useState(false);
@@ -530,6 +531,7 @@ async function rejectNode() {
     setGraph4Score("");
     setGraph5Score("");
     setGraph6Score("");
+    setLegend(false);
     
     setShowText(true);
     setNotes("");
@@ -606,6 +608,7 @@ async function rejectNode() {
 
         setGraph1Score(datarTemp.Score);
         setGraph2Score(datarTemp.Score1);
+        setLegend(true);
         setGraph3Score(datarTemp.Score2);
         setGraph("1");
 
@@ -679,7 +682,6 @@ async function rejectNode() {
               <Button className="btn-class book" variant="outlined" onClick={() => setBook("showChooseBook")} > <MenuBookRoundedIcon sx={{ fontSize: 30 }}></MenuBookRoundedIcon></Button>
             </div>
             <div>
-            {/* <img className="img-title" src={svgDave}></img> */}
             <img className="img-title" src={svgFig}></img>
             <img className="img-text" src={svgText}></img>  
             </div>
@@ -734,7 +736,7 @@ async function rejectNode() {
                 <div className="graphBox-wrapper__clinical-notes__action-fields">
                   <FormGroup>
                     <Stack direction="row" spacing={1} alignItems="center">
-                      <Switch style={{ color: '#c4a35a' }} defaultChecked onChange={() => setDisable(!disableVisNow)} inputProps={{ 'aria-label': 'ant design' }} />
+                      <Switch style={{ color: '#1E5288' }} defaultChecked onChange={() => setDisable(!disableVisNow)} inputProps={{ 'aria-label': 'ant design' }} />
                       <Typography>Visualize Continuously</Typography>
                     </Stack>
                   </FormGroup>
@@ -814,17 +816,17 @@ async function rejectNode() {
                 <ImageOutlinedIcon></ImageOutlinedIcon>
               </GraphButton>
             </div>
+            { legend &&
             <div className="legend-flex">
 
               <ul className=" legend">
                 <li className="legend-rhombus"> Top Node </li>
                 <li className="legend-square-exp-collapse">Expandable </li>
-                <li className="legend-square-consideration"> Test </li>
                 <li className="legend-square-red">Consideration </li>
                 <li className="legend-square-orange"> Diagnosis </li>
               </ul>
             </div>
-
+}
             {graph === "1" && graph1 != "null"
               &&
               <CytoscapeComponent minZoom={0.5} maxZoom={1.5}
