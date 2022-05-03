@@ -52,7 +52,7 @@ cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 // nodeHtmlLabel(cytoscape);
 
-var SERVER_URL = "https://davemr.herokuapp.com"
+var SERVER_URL = "https://davemr.herokuapp.com/"
 
 
 function App() {
