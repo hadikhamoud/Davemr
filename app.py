@@ -11,7 +11,7 @@ from cytotest import PandastoCyto
 from getTop3Algo import gettextscore
 from pprint import pprint
 from flask_talisman import Talisman
-import redis
+
 
 
 #procfile
