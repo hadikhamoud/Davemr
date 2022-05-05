@@ -11,6 +11,7 @@ from cytotest import PandastoCyto
 from getTop3Algo import gettextscore
 from pprint import pprint
 from flask_talisman import Talisman
+import redis
 
 
 #procfile
@@ -304,6 +305,7 @@ def reset():
 # CORS(app)
 @app.route('/')
 def serve():
+
     return send_from_directory(app.static_folder,'index.html')
 
 Talisman(app, content_security_policy=None)

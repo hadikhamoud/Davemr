@@ -1,23 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "dc730062134a9c847c9e",
-    "url": "/static/css/main.2b100565.chunk.css"
+    "revision": "acefab14784ac3f4e94c",
+    "url": "/static/css/main.f6c7abf8.chunk.css"
   },
   {
-    "revision": "dc730062134a9c847c9e",
-    "url": "/static/js/main.a7d9ab1c.chunk.js"
+    "revision": "acefab14784ac3f4e94c",
+    "url": "/static/js/main.05e27d3a.chunk.js"
   },
   {
     "revision": "eb6dc9b194138926645e",
     "url": "/static/js/runtime~main.df234ee7.js"
   },
   {
-    "revision": "9400ffccf7d51e35ab01",
-    "url": "/static/css/2.67fcceee.chunk.css"
+    "revision": "e24ac7d90818e92a3642",
+    "url": "/static/css/2.46749afa.chunk.css"
   },
   {
-    "revision": "9400ffccf7d51e35ab01",
-    "url": "/static/js/2.2b092b62.chunk.js"
+    "revision": "e24ac7d90818e92a3642",
+    "url": "/static/js/2.fc2fa8c9.chunk.js"
   },
   {
     "revision": "4c5fd56540de96e7e39a",
@@ -36,8 +36,8 @@ self.__precacheManifest = [
     "url": "/static/media/DAVE-3.886ff8f5.svg"
   },
   {
-    "revision": "fb07990fe955e51a2ad3c1785f37e1e9",
-    "url": "/static/media/DAVE-2.fb07990f.svg"
+    "revision": "093c26c03e5d261db2485a42623b6073",
+    "url": "/static/media/DAVE-2.093c26c0.svg"
   },
   {
     "revision": "72aaa44c41857b2a39cd8c89d3b47aea",
@@ -508,6 +508,10 @@ self.__precacheManifest = [
     "url": "/static/media/Weight Loss.555aa3d0.png"
   },
   {
+    "revision": "b608513f1ca44aec688a13eb25a896cf",
+    "url": "/static/media/Cough.b608513f.png"
+  },
+  {
     "revision": "af127dd1c3aa7d6c369c2866cabcd41a",
     "url": "/static/media/EGD.af127dd1.png"
   },
@@ -520,7 +524,7 @@ self.__precacheManifest = [
     "url": "/static/media/Wheezing- Stridor.6837b82a.png"
   },
   {
-    "revision": "abc2b47361c47886ea91c5085b963635",
+    "revision": "d41445a02c40421f83c1fe3be62d487a",
     "url": "/index.html"
   }
 ];
