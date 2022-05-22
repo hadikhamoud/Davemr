@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "46cc7dd911a44966ba6a",
+    "revision": "830c98374bb188b77dca",
     "url": "/static/css/main.f6c7abf8.chunk.css"
   },
   {
-    "revision": "46cc7dd911a44966ba6a",
-    "url": "/static/js/main.753f43d7.chunk.js"
+    "revision": "830c98374bb188b77dca",
+    "url": "/static/js/main.c994ea60.chunk.js"
   },
   {
     "revision": "eb6dc9b194138926645e",
@@ -32,8 +32,8 @@ self.__precacheManifest = [
     "url": "/static/media/patientHistory.3eb138a0.jpg"
   },
   {
-    "revision": "886ff8f5c8dce064f81c6500621b2f88",
-    "url": "/static/media/DAVE-3.886ff8f5.svg"
+    "revision": "51f7824ec07b7287f3b48ccb88e8c133",
+    "url": "/static/media/DAVE-3.51f7824e.svg"
   },
   {
     "revision": "093c26c03e5d261db2485a42623b6073",
@@ -524,7 +524,7 @@ self.__precacheManifest = [
     "url": "/static/media/Wheezing- Stridor.6837b82a.png"
   },
   {
-    "revision": "93241c19faa82c94a0670e14f5840560",
+    "revision": "a4896bcfe41cff3277e8ff9771cf8824",
     "url": "/index.html"
   }
 ];

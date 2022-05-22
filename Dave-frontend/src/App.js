@@ -52,6 +52,7 @@ cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 // nodeHtmlLabel(cytoscape);
 
+//var SERVER_URL = "http://0.0.0.0:5000/"
 var SERVER_URL = "https://www.davemr.com/"
 
 

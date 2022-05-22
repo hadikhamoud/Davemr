@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 from flask import request
-# from flask_cors import CORS
+from flask_cors import CORS
 import requests
 import time
 import json
@@ -14,7 +14,15 @@ from flask_talisman import Talisman
 
 
 
-#procfile
+
+
+def getGraph(JSONcyto,graphname):
+    if graphname in JSONcyto:
+        return JSONcyto[graphname]
+    else:
+        print(f'{graphname} does not exist')
+        return None
+
 def InitializeDicts(Init):
     for file in os.listdir(Init.algodir):
         try:
@@ -34,6 +42,7 @@ class Initialize:
             self.inputSofar = ['']
             self.TopNodes = []
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+            self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
             self.BookDirs = [os.path.join(self.CURRENT_DIR, 'algorithms/Symptoms to diagnosis/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/The Patient History/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/Modified_graphs Combined')]
             self.HashmapFiles = [os.path.join(self.CURRENT_DIR, 'data/AllOut/jsontestemrNoStopWordsAllNotesAndPubmedv2lowerCaseDiluted12_6.txt'),os.path.join(self.CURRENT_DIR, 'data/The Patient History/Book2jsontestemrNoStopWordslowerCasePubmedAndAllNotesDiluted12_6.txt'),os.path.join(self.CURRENT_DIR, 'data/Combined_Books/CombinedjsontestemrNoStopWordsALlNotesAndPubmedTop4Diluted12_6.txt')]
             self.NameFiles = [os.path.join(self.CURRENT_DIR, 'data/excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/Book2excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/CombinedBooksexcelNameToRealName.txt')]
@@ -64,23 +73,9 @@ class Initialize:
 
 
 
-
-# with open(os.path.join(CURRENT_DIR, 'data/The Patient History/Book2jsontestemrNoStopWordslowerCasePubmedAndAllNotesDiluted12_6.txt'), 'r') as file:
-#     data = json.load(file)
-# with open(os.path.join(CURRENT_DIR, 'data/Book2excelNameToRealName.txt'), 'r') as file:
-#     Names = json.load(file)
-
-# def clearDict():
-#     global algos
-#     global algos1
-#     global inputSofar
-#     algos = dict.fromkeys(algos, 0)
-#     algos1 = dict.fromkeys(algos, [])
-#     inputSofar = ['']
-
-
 app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
 Init = Initialize()
+#CORS(app)
 
 def getAccess():
     clientId = "87d44646-b973-4b6c-bb81-55c255f27fad"
@@ -187,27 +182,18 @@ def Note():
 
     #topNodes = sorted(topNodes, key = lambda item: item[2],reverse = True)
 
-    algorithmFile = os.path.join(Init.algodir, keys[-1])
-    algorithmFile1 = os.path.join(Init.algodir, keys[-2])
-    algorithmFile2 = os.path.join(Init.algodir, keys[-3])
+    # algorithmFile = os.path.join(Init.algodir, keys[-1])
+    # algorithmFile1 = os.path.join(Init.algodir, keys[-2])
+    # algorithmFile2 = os.path.join(Init.algodir, keys[-3])
 
-    df = pd.read_excel(algorithmFile)
-    df1 = pd.read_excel(algorithmFile1)
-    df2 = pd.read_excel(algorithmFile2)
+    # df = pd.read_excel(algorithmFile)
+    # df1 = pd.read_excel(algorithmFile1)
+    # df2 = pd.read_excel(algorithmFile2)
 
-    try:
-        print(keys[-1], ' : ', NodesSorted[0])
-        elements, topNode = PandastoCyto(df, marked=NodesSorted[0][0])
-        elements1, topNode1 = PandastoCyto(df1)
-        elements2, topNode2 = PandastoCyto(df2)
-        # for i,j,k in zip(elements,elements1,elements2):
-        #     elements[i].extend(elements1[j])
-        #     elements[i].extend(elements2[k])
-
-    except:
-        elements, topNode = PandastoCyto(df)
-        elements1, topNode1 = PandastoCyto(df1)
-        elements2, topNode2 = PandastoCyto(df2)
+   
+    elements = getGraph(Init.graphs,keys[-1])
+    elements1 = getGraph(Init.graphs,keys[-2])
+    elements2 = getGraph(Init.graphs,keys[-3])
 
 
     pprint(Init.topNodes)
@@ -224,6 +210,7 @@ def Note():
         "topNode":Init.topNodes[-1]
 
     })
+
 
 
 
@@ -302,10 +289,9 @@ def reset():
         "reset": "Reset Successful"
     })
 
-# CORS(app)
+
 @app.route('/')
 def serve():
-
     return send_from_directory(app.static_folder,'index.html')
 
 Talisman(app, content_security_policy=None)
@@ -313,3 +299,5 @@ Talisman(app, content_security_policy=None)
 if __name__ == "__main__":
      
      app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
+
+
