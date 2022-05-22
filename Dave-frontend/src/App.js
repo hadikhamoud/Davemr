@@ -348,7 +348,7 @@ async function rejectNode() {
 
   function visualizeNow() {
     console.log(Notes);
-    postData(`${SERVER_URL}/AddnoteNow`, { text: Notes });
+    postData(`${SERVER_URL}/Addnote`, { text: Notes });
   }
 
   // function makeTippy(el){

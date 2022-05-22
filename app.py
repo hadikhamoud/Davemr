@@ -35,6 +35,8 @@ def InitializeDicts(Init):
         except:
             continue
 
+
+
 class Initialize:
         def __init__(self,SymptomsBook="3"):
             self.algos = {}
@@ -73,9 +75,16 @@ class Initialize:
 
 
 
+
+#initializing FLASK variables
 app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
 Init = Initialize()
 #CORS(app)
+
+
+
+
+#EPIC SANDBOX ACCESS
 
 def getAccess():
     clientId = "87d44646-b973-4b6c-bb81-55c255f27fad"
@@ -127,6 +136,11 @@ def getnoteepic():
     })
 
 
+
+
+
+
+
 @app.route('/ChangeBook',methods=["POST"])
 def ChangeBook():
     Chosen = request.json["Book"]
@@ -136,12 +150,21 @@ def ChangeBook():
     })
 
 
+
+
+
+
 @app.route('/RejectNode',methods = ["GET"])
 def RejectNode():
     Init.topNodes.pop()
     return jsonify({
         "topNode": Init.topNodes[-1],
     }) 
+
+
+
+
+
 
 
 @app.route('/Addnote', methods=['POST'])
@@ -177,19 +200,6 @@ def Note():
     while i<len(NodesSorted) and i<3:
         Init.topNodes.append([Init.Names[keys[-1]],NodesSorted[i][0],NodesSorted[i][1]])
         i+=1
-    
-
-
-    #topNodes = sorted(topNodes, key = lambda item: item[2],reverse = True)
-
-    # algorithmFile = os.path.join(Init.algodir, keys[-1])
-    # algorithmFile1 = os.path.join(Init.algodir, keys[-2])
-    # algorithmFile2 = os.path.join(Init.algodir, keys[-3])
-
-    # df = pd.read_excel(algorithmFile)
-    # df1 = pd.read_excel(algorithmFile1)
-    # df2 = pd.read_excel(algorithmFile2)
-
    
     elements = getGraph(Init.graphs,keys[-1])
     elements1 = getGraph(Init.graphs,keys[-2])
@@ -208,8 +218,10 @@ def Note():
         "elementss2": elements2,
         "Name2": Init.Names[keys[-3]],
         "topNode":Init.topNodes[-1]
-
     })
+
+
+
 
 
 
@@ -223,63 +235,28 @@ def RestOfNotes():
     for i in range(4,7):
         print(keys[-i], ' : ', values[-i])
     
-    algorithmFile = os.path.join(Init.algodir, keys[-4])
-    algorithmFile1 = os.path.join(Init.algodir, keys[-5])
-    algorithmFile2 = os.path.join(Init.algodir, keys[-6])
-
-    df = pd.read_excel(algorithmFile)
-    df1 = pd.read_excel(algorithmFile1)
-    df2 = pd.read_excel(algorithmFile2)
-
-    try:
-        elements, topNode = PandastoCyto(df)
-        elements1, topNode1 = PandastoCyto(df1)
-        elements2, topNode2 = PandastoCyto(df2)
-
-    except:
-        elements, topNode = PandastoCyto(df)
-        elements1, topNode1 = PandastoCyto(df1)
-        elements2, topNode2 = PandastoCyto(df2)
+    elements = getGraph(Init.graphs,keys[-1])
+    elements1 = getGraph(Init.graphs,keys[-2])
+    elements2 = getGraph(Init.graphs,keys[-3])
 
     return jsonify({
         "elementss": elements,
-        "topNode": topNode,
         "Name": Init.Names[keys[-4]],
         "elementss1": elements1,
-        "topNode1": topNode1,
         "Name1": Init.Names[keys[-5]],
         "elementss2": elements2,
-        "topNode2": topNode2,
         "Name2": Init.Names[keys[-6]],
         "Score":round(values[-4],-2),
         "Score1":round(values[-5],2),
         "Score2":round(values[-6],2),
-    })
+     })
 
 
-@app.route('/AddnoteNow', methods=['POST'])
-def NoteNow():
-    gettextscore(algos, data, request.json["text"], algos1,inputSofar)
-    alg = dict(sorted(algos.items(), key=lambda item: item[1]))
-    keys = list(alg.keys())
-    values = list(alg.values())
 
-    print(keys[-1], ' : ', values[-1])
-    print(keys[-2], ' : ', values[-2])
-    print(keys[-3], ' : ', values[-3])
-    NodesSorted = sorted(algos1[keys[-1]], key=lambda item: item[1], reverse=True)
 
-    df = pd.read_excel(os.path.join(algodir, keys[-1]))
-    try:
-        print(keys[-1], ' : ', NodesSorted[0])
-        elements, topNode = PandastoCyto(df, marked=NodesSorted[0][0])
-    except:
-        elements, topNode = PandastoCyto(df)
 
-    return jsonify({
-        "elementss": elements,
-        "topNode": topNode
-    })
+
+
 
 
 @app.route('/reset', methods=['POST'])
@@ -290,14 +267,21 @@ def reset():
     })
 
 
+
+
+
+
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder,'index.html')
 
-Talisman(app, content_security_policy=None)
 
-if __name__ == "__main__":
-     
+
+
+
+
+Talisman(app, content_security_policy=None)
+if __name__ == "__main__": 
      app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
 
 

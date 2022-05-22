@@ -124,9 +124,3 @@ def MergePandasToCyto(df,df2,A,B,C):
 
     return elements
 
-
-
-
-# df = pd.read_excel('/Users/hadihamoud/Desktop/FYPEPIC/FYP/Dave-server/algorithms/ch 6-1 anemia.xlsx')
-
-# print(getGraphLevels(df,5))

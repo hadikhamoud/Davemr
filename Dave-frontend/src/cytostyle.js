@@ -47,7 +47,7 @@ export const cytoscapeStylesheet = [
       selector: "node[label]",
       style: {
         label: "data(label)",
-        "font-size": "12",
+        "font-size": "15",
         color: "black",
         "text-halign": "center",
         "text-valign": "center",
