@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 from flask import request
-from flask_cors import CORS
+#from flask_cors import CORS
 import requests
 import time
 import json
