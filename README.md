@@ -17,6 +17,8 @@ Medical support tool that aims to improve clinical decision making through diagn
 
 <br></br>
 
+## Resources
+
 ### **Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)**
 
 ### **Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon**
