@@ -3,15 +3,17 @@ from spellchecker import SpellChecker
 import json
 import os
 
-nltk.download('punkt')
+
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
+
+#get medical terms and medical abbreviations and load them into dictionary
 MedicalFileR = open(os.path.join(CURRENT_DIR,'data/MedicalAbbr/MedicalTermsDict.txt'),'r')
 AbbreviationsFileR = open(os.path.join(CURRENT_DIR,'data/MedicalAbbr/AbbreviationsOnly.txt'),'r')
 MedD = json.load(MedicalFileR)
 AbbrD = json.load(AbbreviationsFileR)
 
-
+#spell check the given words
 def SpellCheckerWithUnknown(word,AbbrD,MedD):
     spell = SpellChecker()
 
@@ -28,7 +30,7 @@ def SpellCheckerWithUnknown(word,AbbrD,MedD):
 
 
 
-
+#use the negation list to deny successors to negation words
 negation_list = ['denies', 'evaluate for', 'no signs of', 'no', "doesn't", 'cannot', 'rules out', 'without signs of',
                  'no complaints of', 'rule out', 'ruled the patient out', 'symptoms atypical', 'no sign of', '-', 'fails to reveal',
                  'denied', 'doesnt', 'didnt', 'rule the patient out', ' -', 'rule him out', 'dont', 'werent', "can't", 'no cause of',
@@ -41,34 +43,7 @@ negation_list = ['denies', 'evaluate for', 'no signs of', 'no', "doesn't", 'cann
 
 negation_list = set(negation_list)
 
-def getNewWord(inputofuser, data, algos, algos1):
-    tokenizedword = nltk.word_tokenize(inputofuser)
-    word = tokenizedword[-1]
-    getwordscore(algos, data, word, algos1)
-
-
-# for continous visualization
-def getwordscore(algos, data, word, algos1):
-    try:
-        x = data[word]
-        for y in x:
-            algos[y[0]] = algos[y[0]] + y[2]
-            z = algos1[y[0]]
-            found = False
-            for i in range(0, len(z)):
-                if y[1] == z[i][0]:
-                    algos1[y[0]][i][1] = algos1[y[0]][i][1] + y[2]
-                    found = True
-
-            if (found):
-                found = False
-            else:
-                algos1[y[0]].append([y[1], y[2]])
-
-    except:
-        return
-
-
+#ADD THE newly added input to scoring
 def addScore(algos,algos1,x):
     for y in x:
         algos[y[0]] = algos[y[0]] + y[2]
@@ -83,7 +58,7 @@ def addScore(algos,algos1,x):
             found = False
         else:
             algos1[y[0]].append([y[1], y[2]])
-
+#substract the deleted input from scoring
 def subScore(algos,algos1,x):
         for y in x:
             algos[y[0]] = algos[y[0]] - y[2]
@@ -96,7 +71,7 @@ def subScore(algos,algos1,x):
 
 
 
-
+#compare new input with older state input dynamically
 def wordsofcomparison(oldinput,newinput):
     nO = len(oldinput)
     nN = len(newinput)
@@ -135,7 +110,7 @@ def wordsofcomparison(oldinput,newinput):
                 
 
 
-
+#combine previously mentioned functions to score input dynamically
 def gettextscore(algos, data, inputofuser, algos1,previnput):
     tokenizedinput = nltk.word_tokenize(inputofuser)
     tokenizedinput = [word.lower() for word in tokenizedinput]
@@ -146,8 +121,6 @@ def gettextscore(algos, data, inputofuser, algos1,previnput):
     if len(previnput)>=1 and previnput[-1] in negation_list:
         Add[0] = "negexdel"
     
-        
-
     for i in range(n):
         if Add[i] in negation_list:
             Add[i] = "negex"
@@ -175,52 +148,3 @@ def gettextscore(algos, data, inputofuser, algos1,previnput):
             
     
 
-
-
-
-def getTop3Algo(algos):
-    n1 = ["", 0]
-    n2 = ["", 0]
-    n3 = ["", 0]
-    for x in algos:
-        if algos[x] > n1[1]:
-            n1[0] = x
-            n1[1] = algos[x]
-        elif algos[x] > n2[1]:
-            n2[0] = x
-            n2[1] = algos[x]
-        elif algos[x] > n3[1]:
-            n3[0] = x
-            n3[1] = algos[x]
-    return n1
-
-    # print("")
-    # print("TOP 3 MATCHS:")
-    # print(n1)
-    # print(n2)
-    # print(n3)
-
-
-# def gettextscore(algos, data, inputofuser, algos1,previnput):
-#     tokenizedinput = nltk.word_tokenize(inputofuser)
-#     previnput = nltk.word_tokenize(inputofuser)
-#     Add,Sub = wordsofcomparison(previnput,tokenizedinput)
-    
-#     n = len(tokenizedinput)
-#     for i in range(n-1):
-#          if tokenizedinput[i]=='NEGEX':
-#                 continue
-#          if tokenizedinput[i] in negation_list:
-#                 tokenizedinput[i+1] = 'NEGEX'
-#                 continue
-#          if tokenizedinput[i] not in data:
-#              tokenizedinput[i] = SpellCheckerWithUnknown(tokenizedinput[i],AbbrD,MedD)
-#     for i in range(n-1):
-#         if tokenizedinput[i] in data:
-#             x = data[tokenizedinput[i]]
-#             addScore(algos,algos1,x)
-    
-#     if n<5:
-#         return "Stall"
-            
-#     return inputofuser
