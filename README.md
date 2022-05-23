@@ -1,7 +1,3 @@
-
-# **DAVE**
-<img src="https://user-images.githubusercontent.com/69105312/169825851-a1e20a1d-f05e-4c0b-b8f3-62235f6ddfeb.svg" alt="drawing" width="300"/>
-
 ## Differential Analysis Visualizer for EMRs
 
 ### https://www.davemr.com
@@ -60,3 +56,5 @@ var SERVER_URL = "0.0.0.0:5000"
 
 
 
+
+![DAVE-3](https://user-images.githubusercontent.com/69105312/169825851-a1e20a1d-f05e-4c0b-b8f3-62235f6ddfeb.svg)
