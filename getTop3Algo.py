@@ -6,8 +6,8 @@ import os
 nltk.download('punkt')
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-MedicalFileR = open(os.path.join(CURRENT_DIR,'data/testdatahashmaps/MedicalTermsDict.txt'),'r')
-AbbreviationsFileR = open(os.path.join(CURRENT_DIR,'data/testdatahashmaps/AbbreviationsOnly.txt'),'r')
+MedicalFileR = open(os.path.join(CURRENT_DIR,'data/MedicalAbbr/MedicalTermsDict.txt'),'r')
+AbbreviationsFileR = open(os.path.join(CURRENT_DIR,'data/MedicalAbbr/AbbreviationsOnly.txt'),'r')
 MedD = json.load(MedicalFileR)
 AbbrD = json.load(AbbreviationsFileR)
 
