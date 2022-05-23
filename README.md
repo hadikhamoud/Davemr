@@ -6,9 +6,14 @@
 
 ### https://www.davemr.com
 
+Medical support tool that aims to improve clinical decision making through diagnostic algorithms visualization.
+
 <br></br>
 
-Medical support tool that aims to improve clinical decision making through diagnostic algorithms visualization.
+
+
+
+## Resources
 
 #### Graphs are extracted from:
 1-The Patient History: evidence-based Approach: ISBN 978-0-07-162494-7 
@@ -17,13 +22,11 @@ Medical support tool that aims to improve clinical decision making through diagn
 
 <br></br>
 
-## Resources
+#### Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)**
 
-### **Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)**
+#### Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon**
 
-### **Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon**
-
-### **Distributional Similarity using DISCO linguatools [DISCO] (https://www.linguatools.de/disco/)**
+#### Distributional Similarity using DISCO linguatools [DISCO] (https://www.linguatools.de/disco/)**
 
 <br></br>
 
