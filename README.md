@@ -20,7 +20,6 @@ Medical support tool that aims to improve clinical decision making through diagn
 
 2-Symptoms to Diagnosis: An Evidence Based Guide: ISBN 978-1-260-12111-7
 
-<br></br>
 
 #### Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)**
 
