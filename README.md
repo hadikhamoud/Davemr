@@ -21,11 +21,11 @@ Medical support tool that aims to improve clinical decision making through diagn
 2-Symptoms to Diagnosis: An Evidence Based Guide: ISBN 978-1-260-12111-7
 
 
-#### Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)**
+#### Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)
 
-#### Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon**
+#### Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon
 
-#### Distributional Similarity using DISCO linguatools [DISCO] (https://www.linguatools.de/disco/)**
+#### Distributional Similarity using DISCO linguatools [DISCO] (https://www.linguatools.de/disco/)
 
 <br></br>
 
