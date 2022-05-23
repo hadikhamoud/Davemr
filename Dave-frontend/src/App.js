@@ -347,7 +347,7 @@ async function rejectNode() {
   }
 
   function visualizeNow() {
-    console.log(Notes);
+    console.log(Notes)
     postData(`${SERVER_URL}/Addnote`, { text: Notes });
   }
 

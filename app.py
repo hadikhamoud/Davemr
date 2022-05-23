@@ -46,7 +46,7 @@ class Initialize:
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
             self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
             self.BookDirs = [os.path.join(self.CURRENT_DIR, 'algorithms/Symptoms to diagnosis/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/The Patient History/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/Modified_graphs Combined')]
-            self.HashmapFiles = [os.path.join(self.CURRENT_DIR, 'data/AllOut/jsontestemrNoStopWordsAllNotesAndPubmedv2lowerCaseDiluted12_6.txt'),os.path.join(self.CURRENT_DIR, 'data/The Patient History/Book2jsontestemrNoStopWordslowerCasePubmedAndAllNotesDiluted12_6.txt'),os.path.join(self.CURRENT_DIR, 'data/Combined_Books/CombinedjsontestemrNoStopWordsALlNotesAndPubmedTop4Diluted12_6.txt')]
+            self.HashmapFiles = [os.path.join(self.CURRENT_DIR, 'data/Symptoms To Diagnosis/SymptomsToDiagJson.txt'),os.path.join(self.CURRENT_DIR, 'data/The Patient History/PatientHistoryJson.txt'),os.path.join(self.CURRENT_DIR, 'data/Combined_Books/CombinedBooksJsonFinal.txt')]
             self.NameFiles = [os.path.join(self.CURRENT_DIR, 'data/excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/Book2excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/CombinedBooksexcelNameToRealName.txt')]
             self.algodir = self.BookDirs[2]
             self.hashmapCurrentFile = open(self.HashmapFiles[2])
