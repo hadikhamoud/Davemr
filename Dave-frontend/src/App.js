@@ -52,8 +52,8 @@ cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 // nodeHtmlLabel(cytoscape);
 
-//var SERVER_URL = "http://0.0.0.0:5000/"
-var SERVER_URL = "https://www.davemr.com/"
+var SERVER_URL = "http://0.0.0.0:5000/"
+// var SERVER_URL = "https://www.davemr.com/"
 
 
 function App() {
@@ -109,78 +109,78 @@ function App() {
   }, 2000);
   
 
-  if (typeof cytoscape('core',contextMenus) === null) {
-    console.log("it is null")
-    contextMenus(cytoscape);
-  }
+  // if (typeof cytoscape('core',contextMenus) === null) {
+  //   console.log("it is null")
+  //   contextMenus(cytoscape);
+  // }
 
   
 
 
-  const defaults = {
+//   const defaults = {
 
-    evtType: 'cxttap',
-    menuItems: [
-      {
-        id: "Accept",
-        content: "Accept",
-        image: {src: "./Accept.png", width: 12, height: 12, x: 6, y: 10},
-        selector: "node[TopNode='1']",
-        onClickFunction: function (event) {
-          console.log(event.target.data().id)
-        },
-        hasTrailingDivider: false
-      },
-      {
-        id: "Reject",
-        content: "Reject",
-        image: {src: "./Reject.png", width: 12, height: 12, x: 6, y: 10},
-        selector: "node[TopNode='1']",
-        onClickFunction: function (event) {
-          console.log("inside Reject " + TopNodeTemp);
-          event.target.removeClass("TopNodeGiven");
-          event.target.data("TopNode","0");
-          rejectNode();
+//     evtType: 'cxttap',
+//     menuItems: [
+//       {
+//         id: "Accept",
+//         content: "Accept",
+//         image: {src: "./Accept.png", width: 12, height: 12, x: 6, y: 10},
+//         selector: "node[TopNode='1']",
+//         onClickFunction: function (event) {
+//           console.log(event.target.data().id)
+//         },
+//         hasTrailingDivider: false
+//       },
+//       {
+//         id: "Reject",
+//         content: "Reject",
+//         image: {src: "./Reject.png", width: 12, height: 12, x: 6, y: 10},
+//         selector: "node[TopNode='1']",
+//         onClickFunction: function (event) {
+//           console.log("inside Reject " + TopNodeTemp);
+//           event.target.removeClass("TopNodeGiven");
+//           event.target.data("TopNode","0");
+//           rejectNode();
 
-        },
-        hasTrailingDivider: false
-      }
-    ],
-    menuItemClasses: ["custom-menu-item", "custom-menu-item:hover"],
-    contextMenuClasses: ["custom-context-menu"]
-};
+//         },
+//         hasTrailingDivider: false
+//       }
+//     ],
+//     menuItemClasses: ["custom-menu-item", "custom-menu-item:hover"],
+//     contextMenuClasses: ["custom-context-menu"]
+// };
 
-function HandleContextMenu(){
-  if (cytoRef.current && counter!==3) {
-    if(ContextMenuRef.current===null){
-      ContextMenuRef.current = cytoRef.current.contextMenus(defaults)
-    }
-    else{
-      ContextMenuRef.current = null
-      ContextMenuRef.current = cytoRef.current.contextMenus(defaults)
-    }
-   }
-}
+// function HandleContextMenu(){
+//   if (cytoRef.current && counter!==3) {
+//     if(ContextMenuRef.current===null){
+//       ContextMenuRef.current = cytoRef.current.contextMenus(defaults)
+//     }
+//     else{
+//       ContextMenuRef.current = null
+//       ContextMenuRef.current = cytoRef.current.contextMenus(defaults)
+//     }
+//    }
+// }
 
 
-async function rejectNode() {
-    const response = await fetch(`${SERVER_URL}/RejectNode`, {
+// async function rejectNode() {
+//     const response = await fetch(`${SERVER_URL}/RejectNode`, {
 
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    // var TopNode = cytoRef.current.getElementById("A"+TopNodeTemp)
-    // console.log("inside reject Node " + TopNode.data('id'))
-    // TopNode.removeClass("TopNodeGiven")
-    // TopNode.data("TopNode","0")
-    const TopNodeReceived = await response.json();
-    setTopNodeTemp(TopNodeReceived.topNode[1]);
-    var countholder = counter + 1
-    setCounter(countholder)
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     })
+//     // var TopNode = cytoRef.current.getElementById("A"+TopNodeTemp)
+//     // console.log("inside reject Node " + TopNode.data('id'))
+//     // TopNode.removeClass("TopNodeGiven")
+//     // TopNode.data("TopNode","0")
+//     const TopNodeReceived = await response.json();
+//     setTopNodeTemp(TopNodeReceived.topNode[1]);
+//     var countholder = counter + 1
+//     setCounter(countholder)
 
-}
+// }
   
 
   function displayGraph1() {
@@ -299,18 +299,18 @@ async function rejectNode() {
     if (cytoRef.current) {
       CytoEvent();
       CytoStartEvent()
-      HandleContextMenu();
+      // HandleContextMenu();
       
     }
 
   }, [graph])
 
-  useEffect(() => {
-    if (cytoRef.current) {
-      CytoTopNodeEvent();
-    }
+  // useEffect(() => {
+  //   if (cytoRef.current) {
+  //     CytoTopNodeEvent();
+  //   }
 
-  }, [TopNodeTemp])
+  // }, [TopNodeTemp])
 
 
 
@@ -351,31 +351,7 @@ async function rejectNode() {
     postData(`${SERVER_URL}/Addnote`, { text: Notes });
   }
 
-  // function makeTippy(el){
-  //   var ref = el.popperRef();
-  //   var dummyDomEle = document.createElement('div');
 
-  //   var tip = tippy( dummyDomEle, {
-  //     getReferenceClientRect: ref.getBoundingClientRect,
-  //     trigger: 'manual', 
-  //     content: function(){
-  //       var div = document.createElement('div');
-
-  //       div.innerHTML = "right Click to Accept of Reject";
-
-  //       return div;
-  //     },
-  //     arrow: true,
-  //     placement: 'top',
-  //     hideOnClick: false,
-  //     sticky: "reference",
-  //     interactive: true,
-  //     followCursor: true,
-  //     appendTo: document.body
-  //   } );
-
-  //   return tip;
-  // };
 
   function CytoTopNodeEvent(){
 
@@ -405,33 +381,9 @@ async function rejectNode() {
   
 
   function CytoEvent() {
-      // cytoRef.current.removeListener('cxttap');
-      // cytoRef.current.contextMenus(defaults);
-    // cytoRef.current.removeListener("click",Animate);
-    // cytoRef.current.removeListener("click",Expandable);
 
-    // cytoRef.current.nodes(topNode).style('background-color', '#00ffff');
-    // var myNode1 = cytoRef.current.nodes('[id="A3"]')[0];
-    // var myNode2 = cytoRef.current.nodes('[id="A7"]')[0];
-    // var level3Nodes = cytoRef.current.nodes('[type="3"]');
-    // myNode1.style('background-color', '#ffb6c1');
-    // myNode2.style('background-color', '#ffb6c1');
-    // var TopNode = cytoRef.current.getElementById('A1');
-    // var Tippy = makeTippy(TopNode)
-    // Tippy.show()
+    
     var AllNodes = cytoRef.current.nodes();
-    // cytoRef.current.animate({
-    //   fit: {
-    //     eles: cytoRef.current.nodes("[rank='2']"),
-    //     padding: 20
-    //   }
-    // },
-    //   {
-
-
-
-    //     duration: 350
-    //   });
     if (AllNodes.length>=3){
     for(var nId=3; nId<AllNodes.length; nId=nId+3){
       var RankedNodes = cytoRef.current.nodes("[rank='"+nId+"']");
@@ -588,43 +540,41 @@ async function rejectNode() {
 
     const datarTemp = await response.json();
     setDatar(datarTemp);
-    if (datarTemp.elementss !== "Stall") {
-      if (datarTemp.Name !== graph1Name) {
-        setGraph1Name(datarTemp.Name);
-        setGraph2Name(datarTemp.Name1);
-        setGraph3Name(datarTemp.Name2);
+    if (datarTemp.elementsG1 !== "Stall") {
+      if (datarTemp.NameG1 !== graph1Name) {
+        setGraph1Name(datarTemp.NameG1);
+        setGraph2Name(datarTemp.NameG2);
+        setGraph3Name(datarTemp.NameG3);
         setShowGraph2(true);
         setShowGraph3(true);
         setGraph1("null");
         setGraph2("null");
         setGraph3("null");
-        console.log("inside first postData TopNodeTemp Before "+TopNodeTemp)
-        
-        
-        console.log("inside first postData TopNodeTemp After "+TopNodeTemp)
-        console.log("inside first postData Received"+datarTemp.topNode[1])
-        setGraph1(datarTemp.elementss);
-        setGraph2(datarTemp.elementss1);
-        setGraph3(datarTemp.elementss2);
+        setGraph1(datarTemp.elementsG1);
+        setGraph2(datarTemp.elementsG2);
+        setGraph3(datarTemp.elementsG3);
 
-        setGraph1Score(datarTemp.Score);
-        setGraph2Score(datarTemp.Score1);
+        setGraph1Score(datarTemp.ScoreG1);
+        setGraph2Score(datarTemp.ScoreG2);
+        setGraph3Score(datarTemp.ScoreG3);
+
         setLegend(true);
-        setGraph3Score(datarTemp.Score2);
         setGraph("1");
 
         
       if (graph!=='1' &&  graph!=='2' && graph!=='3')
           setGraph("1");
       else
-          setGraph(graph)
-      
-        console.log("A"+TopNodeTemp)
-        console.log(cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode"))
-        cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode","1")
-        console.log(cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode"))
-        setTopNodeTemp(datarTemp.topNode[1])
-        HandleContextMenu();
+          setGraph(graph);
+
+        
+        
+        // console.log("A"+TopNodeTemp);
+        // console.log(cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode"));
+        // cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode","1");
+        // console.log(cytoRef.current.getElementById("A"+TopNodeTemp).data("TopNode"));
+        // setTopNodeTemp(datarTemp.topNode[1]);
+        // HandleContextMenu();
         CytoEvent();
 
       }
@@ -643,23 +593,23 @@ async function rejectNode() {
 
     const datarTemp = await response.json();
     setDatarRest(datarTemp);
-    if (datarTemp.elementss !== "Stall") {
-      setGraph4Name(datarTemp.Name);
-      if (datarTemp.Name !== graph4Name) {
-        setGraph5Name(datarTemp.Name1);
-        setGraph6Name(datarTemp.Name2);
+    if (datarTemp.elementsG4 !== "Stall") {
+      setGraph4Name(datarTemp.NameG4);
+      if (datarTemp.NameG4 !== graph4Name) {
+        setGraph5Name(datarTemp.NameG5);
+        setGraph6Name(datarTemp.NameG6);
         setShowGraph4(true);
         setShowGraph5(true);
         setShowGraph6(true);
         setGraph4("null");
         setGraph5("null");
         setGraph6("null");
-        setGraph4(datarTemp.elementss);
-        setGraph5(datarTemp.elementss1);
-        setGraph6(datarTemp.elementss2);
-        setGraph4Score(datarTemp.Score);
-        setGraph5Score(datarTemp.Score1);
-        setGraph6Score(datarTemp.Score2);
+        setGraph4(datarTemp.elementsG4);
+        setGraph5(datarTemp.elementsG5);
+        setGraph6(datarTemp.elementsG6);
+        setGraph4Score(datarTemp.ScoreG4);
+        setGraph5Score(datarTemp.ScoreG5);
+        setGraph6Score(datarTemp.ScoreG6);
       }
     }
   }

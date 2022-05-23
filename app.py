@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 from flask import request
-#from flask_cors import CORS
+from flask_cors import CORS
 import requests
 import time
 import json
@@ -79,8 +79,10 @@ class Initialize:
 #initializing FLASK variables
 app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
 Init = Initialize()
-#CORS(app)
 
+
+CORS(app)
+#Talisman(app, content_security_policy=None)
 
 
 
@@ -174,7 +176,7 @@ def Note():
     print(Init.inputSofar)
     if len(Init.inputSofar)<5:
         return jsonify({
-        "elementss": "Stall",
+        "elementsG1": "Stall",
     })
     #Decide on Top Three Algorithms
     alg = dict(sorted(Init.algos.items(), key=lambda item: item[1]))
@@ -183,42 +185,23 @@ def Note():
 
     for i in range(1,4):
         print(keys[-i], ' : ', values[-i])
-
-    Init.topNodes = []
-    NodesSorted = sorted(Init.algos1[keys[-3]], key=lambda item: item[1])
-    i=0
-    while i<len(NodesSorted) and i<3:
-        Init.topNodes.append([Init.Names[keys[-3]],NodesSorted[i][0],NodesSorted[i][1]])
-        i+=1
-    NodesSorted = sorted(Init.algos1[keys[-2]], key=lambda item: item[1])
-    i=0
-    while i<len(NodesSorted) and i<3:
-        Init.topNodes.append([Init.Names[keys[-2]],NodesSorted[i][0],NodesSorted[i][1]])
-        i+=1
-    NodesSorted = sorted(Init.algos1[keys[-1]], key=lambda item: item[1])
-    i=0
-    while i<len(NodesSorted) and i<3:
-        Init.topNodes.append([Init.Names[keys[-1]],NodesSorted[i][0],NodesSorted[i][1]])
-        i+=1
    
-    elements = getGraph(Init.graphs,keys[-1])
-    elements1 = getGraph(Init.graphs,keys[-2])
-    elements2 = getGraph(Init.graphs,keys[-3])
+    elementsG1 = getGraph(Init.graphs,keys[-1])
+    elementsG2 = getGraph(Init.graphs,keys[-2])
+    elementsG3 = getGraph(Init.graphs,keys[-3])
 
-
-    pprint(Init.topNodes)
     return jsonify({
-        "elementss": elements,
-        "Name": Init.Names[keys[-1]],
-        "Score":round(values[-1],2),
-        "Score1":round(values[-2],2),
-        "Score2":round(values[-3],2),
-        "elementss1": elements1,
-        "Name1": Init.Names[keys[-2]],
-        "elementss2": elements2,
-        "Name2": Init.Names[keys[-3]],
-        "topNode":Init.topNodes[-1]
-    })
+        "elementsG1": elementsG1,
+        "elementsG2": elementsG2,
+        "elementsG3": elementsG3,
+        "NameG1": Init.Names[keys[-1]],
+        "NameG3": Init.Names[keys[-3]],
+        "NameG2": Init.Names[keys[-2]],
+        "ScoreG1":round(values[-1],2),
+        "ScoreG2":round(values[-2],2),
+        "ScoreG3":round(values[-3],2),
+
+        })
 
 
 
@@ -235,20 +218,20 @@ def RestOfNotes():
     for i in range(4,7):
         print(keys[-i], ' : ', values[-i])
     
-    elements = getGraph(Init.graphs,keys[-1])
-    elements1 = getGraph(Init.graphs,keys[-2])
-    elements2 = getGraph(Init.graphs,keys[-3])
+    elementsG4 = getGraph(Init.graphs,keys[-1])
+    elementsG5 = getGraph(Init.graphs,keys[-2])
+    elementsG6 = getGraph(Init.graphs,keys[-3])
 
     return jsonify({
-        "elementss": elements,
-        "Name": Init.Names[keys[-4]],
-        "elementss1": elements1,
-        "Name1": Init.Names[keys[-5]],
-        "elementss2": elements2,
-        "Name2": Init.Names[keys[-6]],
-        "Score":round(values[-4],-2),
-        "Score1":round(values[-5],2),
-        "Score2":round(values[-6],2),
+        "elementsG4": elementsG4,   
+        "elementsG5": elementsG5, 
+        "elementsG6": elementsG6,
+        "NameG4": Init.Names[keys[-4]],
+        "NameG5": Init.Names[keys[-5]],
+        "NameG6": Init.Names[keys[-6]],
+        "ScoreG4":round(values[-4],-2),
+        "ScoreG5":round(values[-5],2),
+        "ScoreG6":round(values[-6],2),
      })
 
 
@@ -280,7 +263,7 @@ def serve():
 
 
 
-Talisman(app, content_security_policy=None)
+
 if __name__ == "__main__": 
      app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
 
