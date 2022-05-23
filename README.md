@@ -6,7 +6,7 @@
 
 ### https://www.davemr.com
 
-Medical support tool that aims to improve clinical decision making through diagnostic algorithms visualization.
+A clinical note analysis application that relates input clinical notes entered by medical practitioners, to text book clinical diagnostic algorithms using Natural language processing and machine learning.
 
 <br></br>
 
