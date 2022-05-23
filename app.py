@@ -15,7 +15,7 @@ from flask_talisman import Talisman
 
 
 
-
+#function to get the GRAPH elements for cytoscape
 def getGraph(JSONcyto,graphname):
     if graphname in JSONcyto:
         return JSONcyto[graphname]
@@ -42,7 +42,6 @@ class Initialize:
             self.algos = {}
             self.algos1 = {}
             self.inputSofar = ['']
-            self.TopNodes = []
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
             self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
             self.BookDirs = [os.path.join(self.CURRENT_DIR, 'algorithms/Symptoms to diagnosis/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/The Patient History/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/Modified_graphs Combined')]
@@ -55,8 +54,10 @@ class Initialize:
             self.Names = json.load(self.NameCurrentFile)
             InitializeDicts(self)
 
+        
         def ChangeBook(self,Choice):
-            if  Choice == "2" or Choice == "1" or Choice == "3":
+            #Choose between book1, book2, or both books combined
+            if Choice == "1" or Choice == "2"  or Choice == "3":
                 ChoiceInt = int(Choice)
                 self.algodir = self.BookDirs[ChoiceInt-1]
                 self.hashmapCurrentFile = open(self.HashmapFiles[ChoiceInt-1])
@@ -65,7 +66,8 @@ class Initialize:
                 self.hashmap = json.load(self.hashmapCurrentFile)
                 self.Names = json.load(self.NameCurrentFile)
             InitializeDicts(self)
-
+        
+        #clear all elements in dictionary
         def ClearDict(self):
             self.algos = dict.fromkeys(self.algos, 0)
             self.algos1 = dict.fromkeys(self.algos1, [])
@@ -81,6 +83,9 @@ app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
 Init = Initialize()
 
 
+#for development, we use flask_cors, and for production on Heroku, we use
+#flask Talisman to enforce https on the app level
+
 CORS(app)
 #Talisman(app, content_security_policy=None)
 
@@ -89,7 +94,7 @@ CORS(app)
 #EPIC SANDBOX ACCESS
 
 def getAccess():
-    clientId = "87d44646-b973-4b6c-bb81-55c255f27fad"
+    clientId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
     redirecturi = "http://localhost:3000"
     pemfile = open('privatekey.pem', 'rb')
     privatekey = pemfile.read()
@@ -100,7 +105,7 @@ def getAccess():
     payload = {
         "sub": clientId,
         "aud": "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token",
-        "jti": "f9eaafba-2e49-11ea-8880-5ce0c5aee679",
+        "jti":  "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
         "exp": time.time() + 80,
         "iss": clientId,
     }
@@ -142,7 +147,7 @@ def getnoteepic():
 
 
 
-
+#change the given book
 @app.route('/ChangeBook',methods=["POST"])
 def ChangeBook():
     Chosen = request.json["Book"]
@@ -154,24 +159,8 @@ def ChangeBook():
 
 
 
-
-
-@app.route('/RejectNode',methods = ["GET"])
-def RejectNode():
-    Init.topNodes.pop()
-    return jsonify({
-        "topNode": Init.topNodes[-1],
-    }) 
-
-
-
-
-
-
-
 @app.route('/Addnote', methods=['POST'])
 def Note():
-    # getNewWord(request.json["text"],data,algos,algos1)
     Init.inputSofar = gettextscore(Init.algos, Init.hashmap, request.json["text"], Init.algos1,Init.inputSofar)
     print(Init.inputSofar)
     if len(Init.inputSofar)<5:
@@ -179,6 +168,7 @@ def Note():
         "elementsG1": "Stall",
     })
     #Decide on Top Three Algorithms
+    #sort them by algorithm score
     alg = dict(sorted(Init.algos.items(), key=lambda item: item[1]))
     keys = list(alg.keys())
     values = list(alg.values())
@@ -186,10 +176,12 @@ def Note():
     for i in range(1,4):
         print(keys[-i], ' : ', values[-i])
    
+   #get the top three scoring algorithms
     elementsG1 = getGraph(Init.graphs,keys[-1])
     elementsG2 = getGraph(Init.graphs,keys[-2])
     elementsG3 = getGraph(Init.graphs,keys[-3])
 
+    #send the graph name, the graph elements and the graph scores
     return jsonify({
         "elementsG1": elementsG1,
         "elementsG2": elementsG2,
@@ -208,7 +200,7 @@ def Note():
 
 
 
-
+#same approach as above but for 4,5, and 6th graphs
 @app.route('/RestOfNotes',methods=['POST'])
 def RestOfNotes():
     alg = dict(sorted(Init.algos.items(), key=lambda item: item[1]))
@@ -241,7 +233,7 @@ def RestOfNotes():
 
 
 
-
+#reset all elements for scoring
 @app.route('/reset', methods=['POST'])
 def reset():
     Init.ClearDict()
@@ -253,7 +245,7 @@ def reset():
 
 
 
-
+#serve main page
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder,'index.html')
