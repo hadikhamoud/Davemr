@@ -14,6 +14,7 @@ from flask_talisman import Talisman
 
 
 
+#Helper functions for Initialization class and graph scoring
 
 #function to get the GRAPH elements for cytoscape
 def getGraph(JSONcyto,graphname):
@@ -26,12 +27,12 @@ def getGraph(JSONcyto,graphname):
 def InitializeDicts(Init):
     for file in os.listdir(Init.algodir):
         try:
-            Init.algos[file] = 0
+            Init.algoScore[file] = 0
         except:
             continue
     for file in os.listdir(Init.algodir):
         try:
-            Init.algos1[file] = []
+            Init.algoNodeScore[file] = []
         except:
             continue
 
@@ -39,8 +40,8 @@ def InitializeDicts(Init):
 
 class Initialize:
         def __init__(self,SymptomsBook="3"):
-            self.algos = {}
-            self.algos1 = {}
+            self.algoScore = {}
+            self.algoNodeScore = {}
             self.inputSofar = ['']
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
             self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
@@ -69,8 +70,8 @@ class Initialize:
         
         #clear all elements in dictionary
         def ClearDict(self):
-            self.algos = dict.fromkeys(self.algos, 0)
-            self.algos1 = dict.fromkeys(self.algos1, [])
+            self.algoScore = dict.fromkeys(self.algoScore, 0)
+            self.algoNodeScore = dict.fromkeys(self.algoNodeScore, [])
             self.inputSofar = ['']
             self.TopNodes = []
             InitializeDicts(self)
@@ -91,7 +92,8 @@ CORS(app)
 
 
 
-#EPIC SANDBOX ACCESS
+#EPIC SANDBOX ACCESS Testing
+#Replace clientId and jti with appropriate values(refer to EPIC EHR documentations)
 
 def getAccess():
     clientId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
@@ -125,7 +127,7 @@ def getAccess():
     authorize = "Bearer " + accesstoken
     return authorize
 
-
+#Example request note for example sandbox patient
 def requestNote(authorize):
     patient = 'ejJD-7U3OqOcsHTnJnjMrDw3'
     authorizelink = "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4/Binary/" + patient
@@ -161,7 +163,7 @@ def ChangeBook():
 
 @app.route('/Addnote', methods=['POST'])
 def Note():
-    Init.inputSofar = gettextscore(Init.algos, Init.hashmap, request.json["text"], Init.algos1,Init.inputSofar)
+    Init.inputSofar = gettextscore(Init.algoScore, Init.hashmap, request.json["text"], Init.algoNodeScore,Init.inputSofar)
     print(Init.inputSofar)
     if len(Init.inputSofar)<5:
         return jsonify({
@@ -169,7 +171,7 @@ def Note():
     })
     #Decide on Top Three Algorithms
     #sort them by algorithm score
-    alg = dict(sorted(Init.algos.items(), key=lambda item: item[1]))
+    alg = dict(sorted(Init.algoScore.items(), key=lambda item: item[1]))
     keys = list(alg.keys())
     values = list(alg.values())
 
@@ -203,7 +205,7 @@ def Note():
 #same approach as above but for 4,5, and 6th graphs
 @app.route('/RestOfNotes',methods=['POST'])
 def RestOfNotes():
-    alg = dict(sorted(Init.algos.items(), key=lambda item: item[1]))
+    alg = dict(sorted(Init.algoScore.items(), key=lambda item: item[1]))
     keys = list(alg.keys())
     values = list(alg.values())
 

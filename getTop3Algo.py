@@ -17,10 +17,13 @@ AbbrD = json.load(AbbreviationsFileR)
 def SpellCheckerWithUnknown(word,AbbrD,MedD):
     spell = SpellChecker()
 
+    #using spellChecker, if word is unknown then it might be a spelling mistake or a medical term
     misspelled = spell.unknown([word.lower()])
     if len(misspelled)!=0:
+        #check misspelled word and check if it exists in the medical words and the abbreviations dataset
         misspelled_word = misspelled.pop()
         if misspelled_word not in AbbrD and misspelled_word not in MedD:
+            #if does not exist, try to correct
            return spell.correction(word)
         else:
             return word
@@ -44,34 +47,41 @@ negation_list = ['denies', 'evaluate for', 'no signs of', 'no', "doesn't", 'cann
 negation_list = set(negation_list)
 
 #ADD THE newly added input to scoring
-def addScore(algos,algos1,x):
+def addScore(algoScore,algoNodeScore,x):
+    #check if the word exists (is found) in the word map
+    #add the score to the algoScore key for all algorithm matches
+    #  and add the node scores for each algorithm progressively into algoNodeScore 
+    #increment the score given the algorithms
     for y in x:
-        algos[y[0]] = algos[y[0]] + y[2]
-        z = algos1[y[0]]
+        algoScore[y[0]] = algoScore[y[0]] + y[2]
+        z = algoNodeScore[y[0]]
         found = False
         for i in range(0, len(z)):
             if y[1] == z[i][0]:
-                algos1[y[0]][i][1] = algos1[y[0]][i][1] + y[2]
+                algoNodeScore[y[0]][i][1] = algoNodeScore[y[0]][i][1] + y[2]
                 found = True
 
         if (found):
             found = False
         else:
-            algos1[y[0]].append([y[1], y[2]])
-#substract the deleted input from scoring
-def subScore(algos,algos1,x):
+            algoNodeScore[y[0]].append([y[1], y[2]])
+
+
+#substract the deleted input from scorin
+#same process but substact from score if word is found
+def subScore(algoScore,algoNodeScore,x):
         for y in x:
-            algos[y[0]] = algos[y[0]] - y[2]
-            z = algos1[y[0]]
+            algoScore[y[0]] = algoScore[y[0]] - y[2]
+            z = algoNodeScore[y[0]]
             found = False
             for i in range(0, len(z)):
                 if y[1] == z[i][0]:
-                    algos1[y[0]][i][1] = algos1[y[0]][i][1] - y[2]
+                    algoNodeScore[y[0]][i][1] = algoNodeScore[y[0]][i][1] - y[2]
                     found = True
 
 
 
-#compare new input with older state input dynamically
+#compare new input with older state input dynamically to adjust algorithm scores
 def wordsofcomparison(oldinput,newinput):
     nO = len(oldinput)
     nN = len(newinput)
@@ -82,6 +92,10 @@ def wordsofcomparison(oldinput,newinput):
     newTemp = newinput.copy()
 
     if nO<=nN:
+        #oldTemp and newTemp represent the sentences before adding the new words and after it respectively
+        #add FILLER_VALUE to keep consistency of both arrays and compare for changes
+        #extra words are added in scoring and changed words modify the scoring
+        #deleted words substract from score
         oldTemp.extend('FILLER_VALUE' for i in range(nN-nO+1))
         for i, (first,second) in enumerate(zip(oldTemp,newTemp)):                
             if first!=second:
@@ -103,6 +117,7 @@ def wordsofcomparison(oldinput,newinput):
             if newTemp[idx]!='FILLER_VALUE':
                 outputAdd.append(newTemp[idx])
             outputSub.append(word)
+    #return what to add for scoring and what to substract from score
     return outputAdd,outputSub
 
 
@@ -111,7 +126,7 @@ def wordsofcomparison(oldinput,newinput):
 
 
 #combine previously mentioned functions to score input dynamically
-def gettextscore(algos, data, inputofuser, algos1,previnput):
+def gettextscore(algoScore, data, inputofuser, algoNodeScore,previnput):
     tokenizedinput = nltk.word_tokenize(inputofuser)
     tokenizedinput = [word.lower() for word in tokenizedinput]
     Add,Sub = wordsofcomparison(previnput,tokenizedinput)
@@ -119,8 +134,10 @@ def gettextscore(algos, data, inputofuser, algos1,previnput):
     n = len(Add)
 
     if len(previnput)>=1 and previnput[-1] in negation_list:
+        #mark word with negexdel to delete the word from scoring (only in dynamic scoring)
         Add[0] = "negexdel"
     
+    #spell check the addition and substraction arrays and modify
     for i in range(n):
         if Add[i] in negation_list:
             Add[i] = "negex"
@@ -133,14 +150,18 @@ def gettextscore(algos, data, inputofuser, algos1,previnput):
              Sub[i] = SpellCheckerWithUnknown(Sub[i],AbbrD,MedD)
     print("Add: ",Add)
     print("Sub: ",Sub)
+
+    #add words to score using addScore helper function
     for word in Add:
         if word in data:
             x = data[word]
-            addScore(algos,algos1,x)
+            addScore(algoScore,algoNodeScore,x)
+
+    #substract words from score using subScore helper function
     for word in Sub:
         if word in data:
             x = data[word]
-            subScore(algos,algos1,x)
+            subScore(algoScore,algoNodeScore,x)
     
     return tokenizedinput
     
