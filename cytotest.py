@@ -1,7 +1,8 @@
 
 import pandas as pd
 
-
+#this file is used to map the diagnostic algorithm into a format readable and customizable by the cytoscape
+#visualization engine (file is not used in final product)
 
 COLORS = {
     'beige':'#f5f5dc',

@@ -40,13 +40,27 @@ def InitializeDicts(Init):
 
 class Initialize:
         def __init__(self,SymptomsBook="3"):
+            #dictionary containing each algorithm graph coupled with its score in real time
             self.algoScore = {}
+
+            #dictionary scoring each node in each algorithm in order to determine the top node of the algorithm graph
             self.algoNodeScore = {}
+
+            #user's input tokenized in list
             self.inputSofar = ['']
+
+            #current directory to retrieve model and other useful files
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
+
+            #load graph elements into graphs variable
             self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
+
+            #load books
             self.BookDirs = [os.path.join(self.CURRENT_DIR, 'algorithms/Symptoms to diagnosis/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/The Patient History/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/Modified_graphs Combined')]
+
             self.HashmapFiles = [os.path.join(self.CURRENT_DIR, 'data/Symptoms To Diagnosis/SymptomsToDiagJson.txt'),os.path.join(self.CURRENT_DIR, 'data/The Patient History/PatientHistoryJson.txt'),os.path.join(self.CURRENT_DIR, 'data/Combined_Books/CombinedBooksJsonFinal.txt')]
+
+            #load graph names for better user experience
             self.NameFiles = [os.path.join(self.CURRENT_DIR, 'data/excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/Book2excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/CombinedBooksexcelNameToRealName.txt')]
             self.algodir = self.BookDirs[2]
             self.hashmapCurrentFile = open(self.HashmapFiles[2])
@@ -179,6 +193,7 @@ def Note():
         print(keys[-i], ' : ', values[-i])
    
    #get the top three scoring algorithms
+   #use the getGraph function mentioned above to retrieve the graph elements in order to send
     elementsG1 = getGraph(Init.graphs,keys[-1])
     elementsG2 = getGraph(Init.graphs,keys[-2])
     elementsG3 = getGraph(Init.graphs,keys[-3])
