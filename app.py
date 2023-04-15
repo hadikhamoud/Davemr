@@ -165,7 +165,7 @@ def Note():
     print(Init.inputSofar)
     if len(Init.inputSofar)<5:
         return jsonify({
-        "elementsG1": "Stall",
+        "Stall": True,
     })
     #Decide on Top Three Algorithms
     #sort them by algorithm score
@@ -183,6 +183,9 @@ def Note():
 
     #send the graph name, the graph elements and the graph scores
     return jsonify({
+        "Stall": False,
+        
+        "elements": [elementsG1,elementsG2,elementsG3],
         "elementsG1": elementsG1,
         "elementsG2": elementsG2,
         "elementsG3": elementsG3,

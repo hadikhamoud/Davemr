@@ -31,6 +31,7 @@ import { layoutdagre } from './cytostyle';
 import { cytoscapeStylesheet } from './cytostyle';
 import contextMenus from 'cytoscape-context-menus';
 import 'cytoscape-context-menus/cytoscape-context-menus.css';
+import DaveCytoscape from "./Components/DaveCytoscape";
 cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 
@@ -74,6 +75,7 @@ function App() {
   let [graph6, setGraph6] = useState("null");
   let [pop, setPop] = useState(true);
   let [datar, setDatar] = useState("null");
+  let [chadiData, setChadiData] = useState(null)
   let [datarRest, setDatarRest] = useState("null");
   let [counter, setCounter] = useState(1);
   const [disableVisNow, setDisable] = React.useState(false);
@@ -184,12 +186,11 @@ function App() {
       CytoEvent();
       CytoStartEvent()
     }
-  }, [graph])
+  }, [cytoRef.current])
 
   function checkKeyChanged(e) {
     if (!disableVisNow)
       if (e.code === 'Space' || e.code === 'Enter') {
-        console.log(Notes);
         postData(`${SERVER_URL}/Addnote`, { text: Notes })
         if (more) {
           postDataRest(`${SERVER_URL}/RestOfNotes`);
@@ -213,7 +214,6 @@ function App() {
   }
 
   function visualizeNow() {
-    console.log(Notes)
     postData(`${SERVER_URL}/Addnote`, { text: Notes });
   }
 
@@ -221,7 +221,7 @@ function App() {
     var TopNode = cytoRef.current.getElementById("A" + TopNodeTemp)
     TopNode.addClass('TopNodeGiven');
     cytoRef.current.getElementById("A" + TopNodeTemp).data("TopNode", "1")
-    console.log("Inside CytoEventTopNode " + "[id='A" + TopNodeTemp + "']")
+    // console.log("Inside CytoEventTopNode " + "[id='A" + TopNodeTemp + "']")
     TopNode.predecessors().forEach(function (ele) {
       if (ele.hasClass('expandable')) {
         ele.successors().toggleClass('collapsedchild' + ele.data('rank') / 3);
@@ -281,7 +281,6 @@ function App() {
     fetch(`${SERVER_URL}/getnoteepic`)
       .then(response => response.json())
       .then(data => {
-        console.log(data)
 
       });
   }
@@ -317,7 +316,6 @@ function App() {
   }
 
   function changeBook(bookselected) {
-    console.log(bookselected);
     postBook(`${SERVER_URL}/ChangeBook`, { Book: bookselected });
     setBook("hideChooseBook");
     setBookChoice("Book" + bookselected);
@@ -357,7 +355,7 @@ function App() {
 
     const datarTemp = await response.json();
     setDatar(datarTemp);
-    if (datarTemp.elementsG1 !== "Stall") {
+    if (!datarTemp.Stall) {
       if (datarTemp.NameG1 !== graph1Name) {
         setGraph1Name(datarTemp.NameG1);
         setGraph2Name(datarTemp.NameG2);
@@ -375,13 +373,16 @@ function App() {
         setGraph3Score(datarTemp.ScoreG3);
         setLegend(true);
         setGraph("1");
+        setChadiData(datarTemp.elements);
 
         if (graph !== '1' && graph !== '2' && graph !== '3'){
 
           setGraph("1");
         } else {
           setGraph(graph);
-          CytoEvent();
+          if (cytoRef.current)
+            CytoEvent();
+            CytoStartEvent()
         }
       }
     }
@@ -399,7 +400,7 @@ function App() {
 
     const datarTemp = await response.json();
     setDatarRest(datarTemp);
-    if (datarTemp.elementsG4 !== "Stall") {
+    if (datarTemp.Stall) {
       setGraph4Name(datarTemp.NameG4);
       if (datarTemp.NameG4 !== graph4Name) {
         setGraph5Name(datarTemp.NameG5);
@@ -422,6 +423,7 @@ function App() {
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
+
 
   return (
     <div className="App">
@@ -582,15 +584,14 @@ function App() {
                   </ul>
                 </div>
               }
-              {graph === "1" && graph1 != "null"
+              {graph && chadiData
                 &&
-                <CytoscapeComponent minZoom={0.5} maxZoom={1.5}
-                  autoungrabify={true} userPanningEnabled={true} className="cyto"
-                  cy={ref => cytoRef.current = ref}
-                  elements={CytoscapeComponent.normalizeElements(graph1)} layout={layoutdagre}
-                  stylesheet={cytoscapeStylesheet} />
+                <DaveCytoscape cytoElements={CytoscapeComponent.normalizeElements(chadiData[parseInt(graph) - 1])}
+                cytoReference={cytoRef}
+                ></DaveCytoscape>
+                
               }
-              {graph === "2" && graph2 != "null"
+              {/* {graph === "2" && graph2 != "null"
                 &&
                 <CytoscapeComponent minZoom={0.5} maxZoom={1.5}
                   autoungrabify={true} userPanningEnabled={true} className="cyto"
@@ -629,7 +630,7 @@ function App() {
                   cy={ref => cytoRef.current = ref}
                   elements={CytoscapeComponent.normalizeElements(graph6)} layout={layoutdagre}
                   stylesheet={cytoscapeStylesheet} />
-              }
+              } */}
             </div>
           </div>
         </div>
