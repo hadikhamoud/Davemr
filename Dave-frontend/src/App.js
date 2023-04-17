@@ -181,12 +181,6 @@ function App() {
     }
   }, [showText])
 
-  useEffect(() => {
-    if (cytoRef.current) {
-      CytoEvent();
-      CytoStartEvent()
-    }
-  }, [cytoRef.current])
 
   function checkKeyChanged(e) {
     if (!disableVisNow)
@@ -200,17 +194,6 @@ function App() {
 
   function getRestGraphs() {
     postDataRest(`${SERVER_URL}/RestOfNotes`);
-  }
-  function CytoStartEvent() {
-    cytoRef.current.animate({
-      fit: {
-        eles: cytoRef.current.nodes("[rank='2']"),
-        padding: 20
-      }
-    },
-      {
-        duration: 350
-      });
   }
 
   function visualizeNow() {
@@ -239,42 +222,6 @@ function App() {
           duration: 350
         });
     }
-  }
-
-  function CytoEvent() {
-    var AllNodes = cytoRef.current.nodes();
-    if (AllNodes.length >= 3) {
-      for (var nId = 3; nId < AllNodes.length; nId = nId + 3) {
-        var RankedNodes = cytoRef.current.nodes("[rank='" + nId + "']");
-        var order = nId / 3
-        RankedNodes.successors().addClass("collapsedchild" + order)
-        RankedNodes.addClass('expandable');
-      }
-    }
-
-    var Expandable = function (ele) {
-      if (ele.hasClass('expandable')) {
-        ele.on('tap', function (evt) {
-          var collapsed = ele.data('rank');
-          ele.successors().toggleClass("collapsedchild" + collapsed / 3);
-        })
-      }
-    }
-    cytoRef.current.nodes().forEach(Expandable)
-
-    var Animate = function (evt) {
-      var targetNode = cytoRef.current.nodes("[id = '" + evt.target.data().id + "']");
-      cytoRef.current.animate({
-        fit: {
-          eles: targetNode,
-          padding: 20
-        }
-      },
-        {
-          duration: 350
-        });
-    }
-    cytoRef.current.on('click', 'node', Animate);
   }
 
   function FromEPIC() {
@@ -380,9 +327,6 @@ function App() {
           setGraph("1");
         } else {
           setGraph(graph);
-          if (cytoRef.current)
-            CytoEvent();
-            CytoStartEvent()
         }
       }
     }
@@ -417,12 +361,16 @@ function App() {
         setGraph4Score(datarTemp.ScoreG4);
         setGraph5Score(datarTemp.ScoreG5);
         setGraph6Score(datarTemp.ScoreG6);
+        setChadiData([...chadiData,...datarTemp.elements]);
       }
     }
   }
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
+
+  console.log(graph);
+  console.log(chadiData);
 
 
   return (
@@ -588,6 +536,7 @@ function App() {
                 &&
                 <DaveCytoscape cytoElements={CytoscapeComponent.normalizeElements(chadiData[parseInt(graph) - 1])}
                 cytoReference={cytoRef}
+                key={`cytoscape-graph-${graph}`}
                 ></DaveCytoscape>
                 
               }
