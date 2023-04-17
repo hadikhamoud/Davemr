@@ -84,6 +84,7 @@ function App() {
   const cytoRef = useRef(null);
   const ContextMenuRef = useRef(null)
   let [TopNodeTemp, setTopNodeTemp] = useState(2);
+  const [chadiDataUpdateCounter, setChadiDataUpdateCounter] = useState(0);
 
   const interval = setInterval(function () {
     setStart(false);
@@ -321,6 +322,8 @@ function App() {
         setLegend(true);
         setGraph("1");
         setChadiData(datarTemp.elements);
+        setChadiDataUpdateCounter((prevCounter) => prevCounter + 1);
+        console.log("changed");
 
         if (graph !== '1' && graph !== '2' && graph !== '3'){
 
@@ -536,7 +539,7 @@ function App() {
                 &&
                 <DaveCytoscape cytoElements={CytoscapeComponent.normalizeElements(chadiData[parseInt(graph) - 1])}
                 cytoReference={cytoRef}
-                key={`cytoscape-graph-${graph}`}
+                key={`cytoscape-graph-${graph}-${chadiDataUpdateCounter}`}
                 ></DaveCytoscape>
                 
               }
