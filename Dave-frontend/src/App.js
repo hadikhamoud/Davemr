@@ -1,43 +1,51 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import './App.css';
-import CytoscapeComponent from 'react-cytoscapejs';
-import cytoscape from 'cytoscape';
-import dagre from 'cytoscape-dagre';
+import "./App.css";
+import CytoscapeComponent from "react-cytoscapejs";
+import cytoscape from "cytoscape";
+import dagre from "cytoscape-dagre";
 import { useRef } from "react";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import {
-  Button, Typography, AppBar, Toolbar, FormGroup, Stack, Switch, Slide, Dialog, IconButton
+  Button,
+  Typography,
+  AppBar,
+  Toolbar,
+  FormGroup,
+  Stack,
+  Switch,
+  Slide,
+  Dialog,
+  IconButton,
 } from "@mui/material";
 import svgDave from "./DAVE-3.svg";
 import svgText from "./DAVE-2.svg";
 import svgFig from "./DAVE-1.svg";
 import ColorButton from "./styledButtons";
 import UserCredentialsDialog from "./UserCredentialsDialog";
-import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
-import LooksOneOutlinedIcon from '@mui/icons-material/LooksOneOutlined';
-import LooksTwoOutlinedIcon from '@mui/icons-material/LooksTwoOutlined';
-import Looks3OutlinedIcon from '@mui/icons-material/Looks3Outlined';
-import Looks4OutlinedIcon from '@mui/icons-material/Looks4Outlined';
-import Looks5OutlinedIcon from '@mui/icons-material/Looks5Outlined';
-import Looks6OutlinedIcon from '@mui/icons-material/Looks6Outlined';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
-import { saveAs } from 'file-saver'
+import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
+import LooksOneOutlinedIcon from "@mui/icons-material/LooksOneOutlined";
+import LooksTwoOutlinedIcon from "@mui/icons-material/LooksTwoOutlined";
+import Looks3OutlinedIcon from "@mui/icons-material/Looks3Outlined";
+import Looks4OutlinedIcon from "@mui/icons-material/Looks4Outlined";
+import Looks5OutlinedIcon from "@mui/icons-material/Looks5Outlined";
+import Looks6OutlinedIcon from "@mui/icons-material/Looks6Outlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
+import { saveAs } from "file-saver";
 
-import { layoutdagre } from './cytostyle';
-import { cytoscapeStylesheet } from './cytostyle';
-import contextMenus from 'cytoscape-context-menus';
-import 'cytoscape-context-menus/cytoscape-context-menus.css';
+import { layoutdagre } from "./cytostyle";
+import { cytoscapeStylesheet } from "./cytostyle";
+import contextMenus from "cytoscape-context-menus";
+import "cytoscape-context-menus/cytoscape-context-menus.css";
 import DaveCytoscape from "./Components/DaveCytoscape";
 cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 
-var SERVER_URL = "http://127.0.0.1:5000/"
+var SERVER_URL = "http://127.0.0.1:5000/";
 // var SERVER_URL = "https://www.davemr.com/"
-
 
 function App() {
   let [start, setStart] = useState(true);
@@ -75,16 +83,16 @@ function App() {
   let [graph6, setGraph6] = useState("null");
   let [pop, setPop] = useState(true);
   let [datar, setDatar] = useState("null");
-  let [chadiData, setChadiData] = useState(null)
+  let [finalData, setfinalData] = useState(null);
   let [datarRest, setDatarRest] = useState("null");
   let [counter, setCounter] = useState(1);
   const [disableVisNow, setDisable] = React.useState(false);
   const [show, setShow] = useState(false);
   let [graph, setGraph] = useState("1");
   const cytoRef = useRef(null);
-  const ContextMenuRef = useRef(null)
+  const ContextMenuRef = useRef(null);
   let [TopNodeTemp, setTopNodeTemp] = useState(2);
-  const [chadiDataUpdateCounter, setChadiDataUpdateCounter] = useState(0);
+  const [finalDataUpdateCounter, setfinalDataUpdateCounter] = useState(0);
 
   const interval = setInterval(function () {
     setStart(false);
@@ -160,33 +168,38 @@ function App() {
   }
 
   function GetGraphName() {
-    if (showGraph1 == false)
-      return graph1Name
-    if (showGraph2 == false)
-      return graph2Name
-    if (showGraph3 == false)
-      return graph3Name
-    if (showGraph4 == false)
-      return graph4Name
-    if (showGraph5 == false)
-      return graph5Name
-    if (showGraph6 == false)
-      return graph6Name
+    if (showGraph1 == false) return graph1Name;
+    if (showGraph2 == false) return graph2Name;
+    if (showGraph3 == false) return graph3Name;
+    if (showGraph4 == false) return graph4Name;
+    if (showGraph5 == false) return graph5Name;
+    if (showGraph6 == false) return graph6Name;
   }
 
   useEffect(() => {
-    if (cytoRef.current && (showGraph1 || showGraph2 || showGraph3 || showGraph4 || showGraph5 || showGraph6)) {
-      let cytoContainer = document.getElementsByClassName("__________cytoscape_container")[0];
-      cytoContainer.children[0].classList.add("cyto-graph-container-dimensions");
+    if (
+      cytoRef.current &&
+      (showGraph1 ||
+        showGraph2 ||
+        showGraph3 ||
+        showGraph4 ||
+        showGraph5 ||
+        showGraph6)
+    ) {
+      let cytoContainer = document.getElementsByClassName(
+        "__________cytoscape_container"
+      )[0];
+      cytoContainer.children[0].classList.add(
+        "cyto-graph-container-dimensions"
+      );
       cytoRef.current.resize();
     }
-  }, [showText])
-
+  }, [showText]);
 
   function checkKeyChanged(e) {
     if (!disableVisNow)
-      if (e.code === 'Space' || e.code === 'Enter') {
-        postData(`${SERVER_URL}/Addnote`, { text: Notes })
+      if (e.code === "Space" || e.code === "Enter") {
+        postData(`${SERVER_URL}/Addnote`, { text: Notes });
         if (more) {
           postDataRest(`${SERVER_URL}/RestOfNotes`);
         }
@@ -202,40 +215,40 @@ function App() {
   }
 
   function CytoTopNodeEvent() {
-    var TopNode = cytoRef.current.getElementById("A" + TopNodeTemp)
-    TopNode.addClass('TopNodeGiven');
-    cytoRef.current.getElementById("A" + TopNodeTemp).data("TopNode", "1")
+    var TopNode = cytoRef.current.getElementById("A" + TopNodeTemp);
+    TopNode.addClass("TopNodeGiven");
+    cytoRef.current.getElementById("A" + TopNodeTemp).data("TopNode", "1");
     // console.log("Inside CytoEventTopNode " + "[id='A" + TopNodeTemp + "']")
     TopNode.predecessors().forEach(function (ele) {
-      if (ele.hasClass('expandable')) {
-        ele.successors().toggleClass('collapsedchild' + ele.data('rank') / 3);
+      if (ele.hasClass("expandable")) {
+        ele.successors().toggleClass("collapsedchild" + ele.data("rank") / 3);
       }
-    })
+    });
 
     if (!cytoRef.current.destroyed()) {
-      cytoRef.current.animate({
-        fit: {
-          eles: TopNode,
-          padding: 20
-        }
-      },
+      cytoRef.current.animate(
         {
-          duration: 350
-        });
+          fit: {
+            eles: TopNode,
+            padding: 20,
+          },
+        },
+        {
+          duration: 350,
+        }
+      );
     }
   }
 
   function FromEPIC() {
     fetch(`${SERVER_URL}/getnoteepic`)
-      .then(response => response.json())
-      .then(data => {
-
-      });
+      .then((response) => response.json())
+      .then((data) => {});
   }
 
   function resetData() {
     if (cytoRef.current) {
-      cytoRef.current.destroy()
+      cytoRef.current.destroy();
     }
     setGraph1("null");
     setGraph2("null");
@@ -270,36 +283,33 @@ function App() {
     resetData();
   }
 
-  async function postBook(url = '', data = {}) {
+  async function postBook(url = "", data = {}) {
     const response = await fetch(url, {
-
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
   }
 
-  async function reset(url = '') {
+  async function reset(url = "") {
     const response = await fetch(url, {
-
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-    })
+    });
   }
 
-  async function postData(url = '', data = {}) {
+  async function postData(url = "", data = {}) {
     const response = await fetch(url, {
-
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
 
     const datarTemp = await response.json();
     setDatar(datarTemp);
@@ -321,11 +331,10 @@ function App() {
         setGraph3Score(datarTemp.ScoreG3);
         setLegend(true);
         setGraph("1");
-        setChadiData(datarTemp.elements);
-        setChadiDataUpdateCounter((prevCounter) => prevCounter + 1);
+        setfinalData(datarTemp.elements);
+        setfinalDataUpdateCounter((prevCounter) => prevCounter + 1);
 
-        if (graph !== '1' && graph !== '2' && graph !== '3'){
-
+        if (graph !== "1" && graph !== "2" && graph !== "3") {
           setGraph("1");
         } else {
           setGraph(graph);
@@ -334,15 +343,13 @@ function App() {
     }
   }
 
-  async function postDataRest(url = '') {
+  async function postDataRest(url = "") {
     const response = await fetch(url, {
-
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-
-    })
+    });
 
     const datarTemp = await response.json();
     setDatarRest(datarTemp);
@@ -363,7 +370,7 @@ function App() {
         setGraph4Score(datarTemp.ScoreG4);
         setGraph5Score(datarTemp.ScoreG5);
         setGraph6Score(datarTemp.ScoreG6);
-        setChadiData([...chadiData,...datarTemp.elements]);
+        setfinalData([...finalData, ...datarTemp.elements]);
       }
     }
   }
@@ -371,21 +378,34 @@ function App() {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-
   return (
     <div className="App">
-      {start &&
+      {start && (
         <div className="animation">
           <img className="img-animation" src={svgDave}></img>
         </div>
-      }
-      {!start &&
+      )}
+      {!start && (
         <div className="App">
           <AppBar position="static">
             <Toolbar classes={{ root: "nav" }}>
               <div>
-                <Button className="btn-class epic" variant="outlined" onClick={FromEPIC} ></Button>&nbsp;&nbsp;
-                <Button className="btn-class book" variant="outlined" onClick={() => setBook("showChooseBook")} > <MenuBookRoundedIcon sx={{ fontSize: 30 }}></MenuBookRoundedIcon></Button>
+                <Button
+                  className="btn-class epic"
+                  variant="outlined"
+                  onClick={FromEPIC}
+                ></Button>
+                &nbsp;&nbsp;
+                <Button
+                  className="btn-class book"
+                  variant="outlined"
+                  onClick={() => setBook("showChooseBook")}
+                >
+                  {" "}
+                  <MenuBookRoundedIcon
+                    sx={{ fontSize: 30 }}
+                  ></MenuBookRoundedIcon>
+                </Button>
               </div>
               <div>
                 <img className="img-title" src={svgFig}></img>
@@ -394,135 +414,294 @@ function App() {
               <div>
                 <div>
                   {/* <Button className="btn-class" variant="outlined" onClick={() => cytoRef.current.reset()}>Reset Zoom</Button> */}
-                  &nbsp;&nbsp;<Button className="btn-class" variant="outlined" onClick={resetData} >Clear</Button>
+                  &nbsp;&nbsp;
+                  <Button
+                    className="btn-class"
+                    variant="outlined"
+                    onClick={resetData}
+                  >
+                    Clear
+                  </Button>
                 </div>
               </div>
             </Toolbar>
           </AppBar>
-          <UserCredentialsDialog open={book === "showChooseBook"} onSubmit={(bookselected) => changeBook(bookselected)}
+          <UserCredentialsDialog
+            open={book === "showChooseBook"}
+            onSubmit={(bookselected) => changeBook(bookselected)}
             onClose={() => setBook("hideChooseBook")}
-            title={'Choose Book'} submitText={'submit'}></UserCredentialsDialog>
-          {openPNG &&
+            title={"Choose Book"}
+            submitText={"submit"}
+          ></UserCredentialsDialog>
+          {openPNG && (
             <Dialog
               fullScreen
               open={openPNG}
               onClose={() => setOpenPNG(false)}
-              TransitionComponent={Transition}>
-              <AppBar sx={{ position: 'relative' }}>
+              TransitionComponent={Transition}
+            >
+              <AppBar sx={{ position: "relative" }}>
                 <Toolbar classes={{ root: "nav-png" }}>
                   <IconButton
                     edge="start"
                     color="inherit"
                     onClick={() => setOpenPNG(false)}
-                    aria-label="close">
+                    aria-label="close"
+                  >
                     <CloseIcon />
                   </IconButton>
-                  <Button autoFocus variant="outlined" color="inherit" onClick={() => saveAs("./PNGs/" + bookChoice + "/" + GetGraphName() + '.png', GetGraphName() + '.png')}>
+                  <Button
+                    autoFocus
+                    variant="outlined"
+                    color="inherit"
+                    onClick={() =>
+                      saveAs(
+                        "./PNGs/" + bookChoice + "/" + GetGraphName() + ".png",
+                        GetGraphName() + ".png"
+                      )
+                    }
+                  >
                     Save
                   </Button>
                 </Toolbar>
               </AppBar>
               <div className="to-png-pop-up">
-                <img src={require("../public/PNGs/" + bookChoice + "/" + GetGraphName() + '.png')} />
+                <img
+                  src={require("../public/PNGs/" +
+                    bookChoice +
+                    "/" +
+                    GetGraphName() +
+                    ".png")}
+                />
               </div>
             </Dialog>
-          }
+          )}
           <div className="graphBox">
-            {showText &&
+            {showText && (
               <div className="graphBoxLeft">
                 <div className="wrapper">
                   <div className="graphBox-wrapper__clinical-notes__header">
                     <Typography variant="h5">Write your notes here</Typography>
                   </div>
-                  <textarea id="clincalNotesTextField" name="clincalNotesTextField" rows="15" cols="100"
-                    value={Notes} onChange={e => setNotes(e.target.value)} onKeyPress={(e) => checkKeyChanged(e)}>
-                  </textarea>
+                  <textarea
+                    id="clincalNotesTextField"
+                    name="clincalNotesTextField"
+                    rows="15"
+                    cols="100"
+                    value={Notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    onKeyPress={(e) => checkKeyChanged(e)}
+                  ></textarea>
                   <div className="graphBox-wrapper__clinical-notes__action-fields">
                     <FormGroup>
                       <Stack direction="row" spacing={1} alignItems="center">
-                        <Switch style={{ color: '#1E5288' }} defaultChecked onChange={() => setDisable(!disableVisNow)} inputProps={{ 'aria-label': 'ant design' }} />
+                        <Switch
+                          style={{ color: "#1E5288" }}
+                          defaultChecked
+                          onChange={() => setDisable(!disableVisNow)}
+                          inputProps={{ "aria-label": "ant design" }}
+                        />
                         <Typography>Visualize Continuously</Typography>
                       </Stack>
                     </FormGroup>
-                    <ColorButton className="visualize-btn" disabled={!disableVisNow} variant="contained" onClick={visualizeNow}>Visualize</ColorButton>
+                    <ColorButton
+                      className="visualize-btn"
+                      disabled={!disableVisNow}
+                      variant="contained"
+                      onClick={visualizeNow}
+                    >
+                      Visualize
+                    </ColorButton>
                   </div>
                 </div>
               </div>
-            }
+            )}
             <div className="graphBoxRight">
               <div className="graph-box-right__open-note-button-container">
-                <Button className="graph-box-right__open-note-button" variant="contained" onClick={() => setShowText(!showText)}>
+                <Button
+                  className="graph-box-right__open-note-button"
+                  variant="contained"
+                  onClick={() => setShowText(!showText)}
+                >
                   <StickyNote2OutlinedIcon></StickyNote2OutlinedIcon>
                 </Button>
                 <div className="graph-box-right__button-container">
-                  <Button className={`base-class ${showGraph1 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`}
-                    disabled={!showGraph1} variant="contained" onClick={() => displayGraph1()}>
+                  <Button
+                    className={`base-class ${
+                      showGraph1
+                        ? "graph-box-right__graph-buttons"
+                        : "graph-box-right__graph-buttons--disabled"
+                    }`}
+                    disabled={!showGraph1}
+                    variant="contained"
+                    onClick={() => displayGraph1()}
+                  >
                     <LooksOneOutlinedIcon></LooksOneOutlinedIcon>
                   </Button>
-                  <label className={`base-class ${!showGraph1 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                  >{graph1Name} {graph1Score && ": " + graph1Score}</label>
+                  <label
+                    className={`base-class ${
+                      !showGraph1
+                        ? "graph-box-right__button-container__label"
+                        : "graph-box-right__button-container__label--disabled"
+                    }`}
+                  >
+                    {graph1Name} {graph1Score && ": " + graph1Score}
+                  </label>
                 </div>
                 <div className="graph-box-right__button-container">
-                  <Button className={`base-class ${showGraph2 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`}
-                    disabled={!showGraph2} variant="contained" onClick={() => { displayGraph2() }}>
+                  <Button
+                    className={`base-class ${
+                      showGraph2
+                        ? "graph-box-right__graph-buttons"
+                        : "graph-box-right__graph-buttons--disabled"
+                    }`}
+                    disabled={!showGraph2}
+                    variant="contained"
+                    onClick={() => {
+                      displayGraph2();
+                    }}
+                  >
                     <LooksTwoOutlinedIcon></LooksTwoOutlinedIcon>
                   </Button>
-                  <label className={`base-class ${!showGraph2 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                  >{graph2Name} {graph2Score && ": " + graph2Score}</label>
+                  <label
+                    className={`base-class ${
+                      !showGraph2
+                        ? "graph-box-right__button-container__label"
+                        : "graph-box-right__button-container__label--disabled"
+                    }`}
+                  >
+                    {graph2Name} {graph2Score && ": " + graph2Score}
+                  </label>
                 </div>
                 <div className="graph-box-right__button-container">
-                  <Button className={`base-class ${showGraph3 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`} disabled={!showGraph3} variant="contained" onClick={() => displayGraph3()}>
+                  <Button
+                    className={`base-class ${
+                      showGraph3
+                        ? "graph-box-right__graph-buttons"
+                        : "graph-box-right__graph-buttons--disabled"
+                    }`}
+                    disabled={!showGraph3}
+                    variant="contained"
+                    onClick={() => displayGraph3()}
+                  >
                     <Looks3OutlinedIcon></Looks3OutlinedIcon>
                   </Button>
-                  <label className={`base-class ${!showGraph3 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                  >{graph3Name} {graph3Score && ": " + graph3Score}</label>
+                  <label
+                    className={`base-class ${
+                      !showGraph3
+                        ? "graph-box-right__button-container__label"
+                        : "graph-box-right__button-container__label--disabled"
+                    }`}
+                  >
+                    {graph3Name} {graph3Score && ": " + graph3Score}
+                  </label>
                 </div>
-                {more &&
+                {more && (
                   <div>
                     <div className="graph-box-right__button-container">
-                      <Button className={`base-class ${showGraph4 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`} disabled={!showGraph4} variant="contained" onClick={() => displayGraph4()}>
+                      <Button
+                        className={`base-class ${
+                          showGraph4
+                            ? "graph-box-right__graph-buttons"
+                            : "graph-box-right__graph-buttons--disabled"
+                        }`}
+                        disabled={!showGraph4}
+                        variant="contained"
+                        onClick={() => displayGraph4()}
+                      >
                         <Looks4OutlinedIcon></Looks4OutlinedIcon>
                       </Button>
-                      <label className={`base-class ${!showGraph4 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                      >{graph4Name} {graph4Score && ": " + graph4Score}</label>
+                      <label
+                        className={`base-class ${
+                          !showGraph4
+                            ? "graph-box-right__button-container__label"
+                            : "graph-box-right__button-container__label--disabled"
+                        }`}
+                      >
+                        {graph4Name} {graph4Score && ": " + graph4Score}
+                      </label>
                     </div>
                     <div className="graph-box-right__button-container">
-                      <Button className={`base-class ${showGraph5 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`} disabled={!showGraph5} variant="contained" onClick={() => displayGraph5()}>
+                      <Button
+                        className={`base-class ${
+                          showGraph5
+                            ? "graph-box-right__graph-buttons"
+                            : "graph-box-right__graph-buttons--disabled"
+                        }`}
+                        disabled={!showGraph5}
+                        variant="contained"
+                        onClick={() => displayGraph5()}
+                      >
                         <Looks5OutlinedIcon></Looks5OutlinedIcon>
                       </Button>
-                      <label className={`base-class ${!showGraph5 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                      >{graph5Name} {graph5Score && ": " + graph5Score}</label>
+                      <label
+                        className={`base-class ${
+                          !showGraph5
+                            ? "graph-box-right__button-container__label"
+                            : "graph-box-right__button-container__label--disabled"
+                        }`}
+                      >
+                        {graph5Name} {graph5Score && ": " + graph5Score}
+                      </label>
                     </div>
                     <div className="graph-box-right__button-container">
-                      <Button className={`base-class ${showGraph6 ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`} disabled={!showGraph6} variant="contained" onClick={() => displayGraph6()}>
+                      <Button
+                        className={`base-class ${
+                          showGraph6
+                            ? "graph-box-right__graph-buttons"
+                            : "graph-box-right__graph-buttons--disabled"
+                        }`}
+                        disabled={!showGraph6}
+                        variant="contained"
+                        onClick={() => displayGraph6()}
+                      >
                         <Looks6OutlinedIcon></Looks6OutlinedIcon>
                       </Button>
-                      <label className={`base-class ${!showGraph6 ? 'graph-box-right__button-container__label' : 'graph-box-right__button-container__label--disabled'}`}
-                      >{graph6Name} {graph6Score && ": " + graph6Score}</label>
+                      <label
+                        className={`base-class ${
+                          !showGraph6
+                            ? "graph-box-right__button-container__label"
+                            : "graph-box-right__button-container__label--disabled"
+                        }`}
+                      >
+                        {graph6Name} {graph6Score && ": " + graph6Score}
+                      </label>
                     </div>
-
                   </div>
-
-                }
-                <Button className={`base-class ${graph1 != "null" ? 'graph-box-right__graph-buttons' : 'graph-box-right__graph-buttons--disabled'}`}
-                  disabled={graph1 === "null"} variant="contained" onClick={() => { setMore(!more); getRestGraphs() }}>
-                  {!more &&
-                    <MoreHorizIcon></MoreHorizIcon>
-                  }
-                  {more &&
-                    <KeyboardArrowUpIcon></KeyboardArrowUpIcon>
-                  }
+                )}
+                <Button
+                  className={`base-class ${
+                    graph1 != "null"
+                      ? "graph-box-right__graph-buttons"
+                      : "graph-box-right__graph-buttons--disabled"
+                  }`}
+                  disabled={graph1 === "null"}
+                  variant="contained"
+                  onClick={() => {
+                    setMore(!more);
+                    getRestGraphs();
+                  }}
+                >
+                  {!more && <MoreHorizIcon></MoreHorizIcon>}
+                  {more && <KeyboardArrowUpIcon></KeyboardArrowUpIcon>}
                 </Button>
               </div>
               <div className="graph-box-right__to-png-container">
-                <Button className={`base-class ${graph1 != "null" ? 'graph-box-right__to-png-buttons' : 'graph-box-right__to-png-buttons--disabled'}`}
-                  disabled={graph1 === "null"} variant="contained" onClick={() => setOpenPNG(!openPNG)}>
+                <Button
+                  className={`base-class ${
+                    graph1 != "null"
+                      ? "graph-box-right__to-png-buttons"
+                      : "graph-box-right__to-png-buttons--disabled"
+                  }`}
+                  disabled={graph1 === "null"}
+                  variant="contained"
+                  onClick={() => setOpenPNG(!openPNG)}
+                >
                   <ImageOutlinedIcon></ImageOutlinedIcon>
                 </Button>
               </div>
-              {legend &&
+              {legend && (
                 <div className="legend-flex">
-
                   <ul className=" legend">
                     <li className="legend-rhombus"> Top Node </li>
                     <li className="legend-square-exp-collapse">Expandable </li>
@@ -530,15 +709,16 @@ function App() {
                     <li className="legend-square-orange"> Diagnosis </li>
                   </ul>
                 </div>
-              }
-              {graph && chadiData
-                &&
-                <DaveCytoscape cytoElements={CytoscapeComponent.normalizeElements(chadiData[parseInt(graph) - 1])}
-                cytoReference={cytoRef}
-                key={`cytoscape-graph-${graph}-${chadiDataUpdateCounter}`}
+              )}
+              {graph && finalData && (
+                <DaveCytoscape
+                  cytoElements={CytoscapeComponent.normalizeElements(
+                    finalData[parseInt(graph) - 1]
+                  )}
+                  cytoReference={cytoRef}
+                  key={`cytoscape-graph-${graph}-${finalDataUpdateCounter}`}
                 ></DaveCytoscape>
-                
-              }
+              )}
               {/* {graph === "2" && graph2 != "null"
                 &&
                 <CytoscapeComponent minZoom={0.5} maxZoom={1.5}
@@ -582,7 +762,7 @@ function App() {
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

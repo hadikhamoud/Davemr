@@ -43,7 +43,7 @@ class Initialize:
             self.algos1 = {}
             self.inputSofar = ['']
             self.CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-            self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.txt')))
+            self.graphs = json.load(open(os.path.join(self.CURRENT_DIR,'data/JSONGraphs.json')))
             self.BookDirs = [os.path.join(self.CURRENT_DIR, 'algorithms/Symptoms to diagnosis/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/The Patient History/Modified_graphs'),os.path.join(self.CURRENT_DIR, 'algorithms/Modified_graphs Combined')]
             self.HashmapFiles = [os.path.join(self.CURRENT_DIR, 'data/Symptoms To Diagnosis/SymptomsToDiagJson.txt'),os.path.join(self.CURRENT_DIR, 'data/The Patient History/PatientHistoryJson.txt'),os.path.join(self.CURRENT_DIR, 'data/Combined_Books/CombinedBooksJsonFinal.txt')]
             self.NameFiles = [os.path.join(self.CURRENT_DIR, 'data/excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/Book2excelNameToRealName.txt'),os.path.join(self.CURRENT_DIR, 'data/CombinedBooksexcelNameToRealName.txt')]

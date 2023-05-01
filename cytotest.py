@@ -124,3 +124,20 @@ def MergePandasToCyto(df,df2,A,B,C):
 
     return elements
 
+def pandastocytotoJSON(file):
+    outputJSON = {}
+    filename = file.split('/')[-1]
+    df = pd.read_excel(file)
+    outputCyto = PandastoCyto(df)
+    outputJSON[filename] = outputCyto
+    
+    #turn outputJSON into JSON
+    import json
+    outputJSON = json.dumps(outputJSON)
+    
+
+    
+    return outputJSON
+
+
+# print(pandastocytotoJSON("/Users/hadihamoud/Desktop/hadi/AUB/FYP/DAVE Files/Dave-prod/algorithms/Modified_graphs Combined/ch 25-dyspnea.xlsx"))
