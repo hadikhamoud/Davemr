@@ -9,7 +9,6 @@ export default function DaveCytoscape({ cytoElements }) {
 
   useEffect(() => {
     if (cytoReference.current) {
-      console.log("crying"); 
       // Initialize the graph layout
       const layout = cytoReference.current.layout(layoutdagre);
       layout.run();

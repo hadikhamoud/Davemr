@@ -213,11 +213,12 @@ def RestOfNotes():
     for i in range(4,7):
         print(keys[-i], ' : ', values[-i])
     
-    elementsG4 = getGraph(Init.graphs,keys[-1])
-    elementsG5 = getGraph(Init.graphs,keys[-2])
-    elementsG6 = getGraph(Init.graphs,keys[-3])
+    elementsG4 = getGraph(Init.graphs,keys[-4])
+    elementsG5 = getGraph(Init.graphs,keys[-5])
+    elementsG6 = getGraph(Init.graphs,keys[-6])
 
     return jsonify({
+        "elements": [elementsG4,elementsG5,elementsG6],
         "elementsG4": elementsG4,   
         "elementsG5": elementsG5, 
         "elementsG6": elementsG6,

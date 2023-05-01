@@ -323,7 +323,6 @@ function App() {
         setGraph("1");
         setChadiData(datarTemp.elements);
         setChadiDataUpdateCounter((prevCounter) => prevCounter + 1);
-        console.log("changed");
 
         if (graph !== '1' && graph !== '2' && graph !== '3'){
 
@@ -347,7 +346,7 @@ function App() {
 
     const datarTemp = await response.json();
     setDatarRest(datarTemp);
-    if (datarTemp.Stall) {
+    if (!datarTemp.Stall) {
       setGraph4Name(datarTemp.NameG4);
       if (datarTemp.NameG4 !== graph4Name) {
         setGraph5Name(datarTemp.NameG5);
@@ -361,7 +360,7 @@ function App() {
         setGraph4(datarTemp.elementsG4);
         setGraph5(datarTemp.elementsG5);
         setGraph6(datarTemp.elementsG6);
-        setGraph4Score(datarTemp.ScoreG4);
+        setGraph4Score(datarTemp.ScoreG4 ? datarTemp.ScoreG4 : 0.2);
         setGraph5Score(datarTemp.ScoreG5);
         setGraph6Score(datarTemp.ScoreG6);
         setChadiData([...chadiData,...datarTemp.elements]);
@@ -371,9 +370,6 @@ function App() {
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
-
-  console.log(graph);
-  console.log(chadiData);
 
 
   return (
@@ -397,7 +393,7 @@ function App() {
               </div>
               <div>
                 <div>
-                  <Button className="btn-class" variant="outlined" onClick={() => cytoRef.current.reset()}>Reset Zoom</Button>
+                  {/* <Button className="btn-class" variant="outlined" onClick={() => cytoRef.current.reset()}>Reset Zoom</Button> */}
                   &nbsp;&nbsp;<Button className="btn-class" variant="outlined" onClick={resetData} >Clear</Button>
                 </div>
               </div>
