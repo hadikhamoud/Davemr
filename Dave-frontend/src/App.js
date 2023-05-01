@@ -360,7 +360,7 @@ function App() {
         setGraph4(datarTemp.elementsG4);
         setGraph5(datarTemp.elementsG5);
         setGraph6(datarTemp.elementsG6);
-        setGraph4Score(datarTemp.ScoreG4 ? datarTemp.ScoreG4 : 0.2);
+        setGraph4Score(datarTemp.ScoreG4);
         setGraph5Score(datarTemp.ScoreG5);
         setGraph6Score(datarTemp.ScoreG6);
         setChadiData([...chadiData,...datarTemp.elements]);
