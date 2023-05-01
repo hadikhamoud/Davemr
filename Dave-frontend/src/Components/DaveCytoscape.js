@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { layoutdagre } from '../cytostyle';
-import { cytoscapeStylesheet } from '../cytostyle';
-import CytoscapeComponent from 'react-cytoscapejs';
+import React, { useEffect, useRef } from "react";
+import { layoutdagre } from "../cytostyle";
+import { cytoscapeStylesheet } from "../cytostyle";
+import CytoscapeComponent from "react-cytoscapejs";
 
 export default function DaveCytoscape({ cytoElements }) {
   const cytoScapeElements = [...cytoElements];
@@ -14,7 +14,7 @@ export default function DaveCytoscape({ cytoElements }) {
       layout.run();
 
       // Center the second node when the graph is first mounted
-      layout.promiseOn('layoutstop').then(() => {
+      layout.promiseOn("layoutstop").then(() => {
         const secondNode = cytoReference.current.nodes()[1];
         if (secondNode) {
           cytoReference.current.animate({
@@ -41,7 +41,7 @@ export default function DaveCytoscape({ cytoElements }) {
       // Collapse or expand nodes
       const toggleNodes = (evt) => {
         const ele = evt.target;
-        const collapsed = ele.data('rank');
+        const collapsed = ele.data("rank");
         ele.successors().toggleClass(`collapsedchild${collapsed / 3}`);
       };
 
@@ -53,21 +53,23 @@ export default function DaveCytoscape({ cytoElements }) {
           const rankedNodes = cytoReference.current.nodes(`[rank='${nId}']`);
           const order = nId / 3;
           rankedNodes.successors().addClass(`collapsedchild${order}`);
-          rankedNodes.addClass('expandable');
+          rankedNodes.addClass("expandable");
         }
 
-        cytoReference.current.nodes('.expandable').on('tap', toggleNodes);
+        cytoReference.current.nodes(".expandable").on("tap", toggleNodes);
       };
 
       processNodes();
 
       // Assign event listeners
-      cytoReference.current.on('tap', 'node', centerNode);
+      cytoReference.current.on("tap", "node", centerNode);
 
       // Clean up event listeners on unmount
       return () => {
-        cytoReference.current.removeListener('tap', 'node', centerNode);
-        cytoReference.current.nodes('.expandable').removeListener('tap', toggleNodes);
+        cytoReference.current.removeListener("tap", "node", centerNode);
+        cytoReference.current
+          .nodes(".expandable")
+          .removeListener("tap", toggleNodes);
       };
     }
   }, [cytoReference]);

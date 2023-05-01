@@ -225,7 +225,7 @@ def RestOfNotes():
         "NameG4": Init.Names[keys[-4]],
         "NameG5": Init.Names[keys[-5]],
         "NameG6": Init.Names[keys[-6]],
-        "ScoreG4":round(values[-4],-2),
+        "ScoreG4":round(values[-4],2),
         "ScoreG5":round(values[-5],2),
         "ScoreG6":round(values[-6],2),
      })
