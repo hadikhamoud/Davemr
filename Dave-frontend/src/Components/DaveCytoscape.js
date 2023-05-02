@@ -3,9 +3,24 @@ import { layoutdagre } from "../cytostyle";
 import { cytoscapeStylesheet } from "../cytostyle";
 import CytoscapeComponent from "react-cytoscapejs";
 
-export default function DaveCytoscape({ cytoElements }) {
+export default function DaveCytoscape({ cytoElements, clearGraph, setClearGraph, setGraph }) {
   const cytoScapeElements = [...cytoElements];
   const cytoReference = useRef(null);
+
+
+  useEffect(() => {
+    if (cytoReference.current){
+      if (clearGraph) {
+        cytoReference.current.destroy();
+        setGraph(null);
+        setClearGraph(null);
+      }
+
+    }
+
+
+  }, [clearGraph]);
+
 
   useEffect(() => {
     if (cytoReference.current) {

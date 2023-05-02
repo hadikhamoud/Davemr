@@ -93,6 +93,7 @@ function App() {
   const ContextMenuRef = useRef(null);
   let [TopNodeTemp, setTopNodeTemp] = useState(2);
   const [finalDataUpdateCounter, setfinalDataUpdateCounter] = useState(0);
+  const [clearGraph, setClearGraph] = useState(null);
 
   const interval = setInterval(function () {
     setStart(false);
@@ -250,6 +251,7 @@ function App() {
     if (cytoRef.current) {
       cytoRef.current.destroy();
     }
+    setClearGraph(true);
     setGraph1("null");
     setGraph2("null");
     setGraph3("null");
@@ -333,12 +335,13 @@ function App() {
         setGraph("1");
         setfinalData(datarTemp.elements);
         setfinalDataUpdateCounter((prevCounter) => prevCounter + 1);
+        setShowGraph1(false);
 
-        if (graph !== "1" && graph !== "2" && graph !== "3") {
-          setGraph("1");
-        } else {
-          setGraph(graph);
-        }
+        // if (graph !== "1" && graph !== "2" && graph !== "3") {
+        //   setGraph("1");
+        // } else {
+        //   setGraph(graph);
+        // }
       }
     }
   }
@@ -374,6 +377,7 @@ function App() {
       }
     }
   }
+  console.log(cytoRef);
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
@@ -717,6 +721,9 @@ function App() {
                   )}
                   cytoReference={cytoRef}
                   key={`cytoscape-graph-${graph}-${finalDataUpdateCounter}`}
+                  clearGraph={clearGraph}
+                  setClearGraph={setClearGraph}
+                  setGraph={setGraph}
                 ></DaveCytoscape>
               )}
               {/* {graph === "2" && graph2 != "null"
