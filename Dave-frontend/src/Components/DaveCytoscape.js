@@ -1,26 +1,26 @@
 import React, { useEffect, useRef } from "react";
-import { layoutdagre } from "../cytostyle";
-import { cytoscapeStylesheet } from "../cytostyle";
+import { layoutdagre } from "../style/cytostyle";
+import { cytoscapeStylesheet } from "../style/cytostyle";
 import CytoscapeComponent from "react-cytoscapejs";
 
-export default function DaveCytoscape({ cytoElements, clearGraph, setClearGraph, setGraph }) {
+export default function DaveCytoscape({
+  cytoElements,
+  clearGraph,
+  setClearGraph,
+  setGraph,
+}) {
   const cytoScapeElements = [...cytoElements];
   const cytoReference = useRef(null);
 
-
   useEffect(() => {
-    if (cytoReference.current){
+    if (cytoReference.current) {
       if (clearGraph) {
         cytoReference.current.destroy();
         setGraph(null);
         setClearGraph(null);
       }
-
     }
-
-
   }, [clearGraph]);
-
 
   useEffect(() => {
     if (cytoReference.current) {

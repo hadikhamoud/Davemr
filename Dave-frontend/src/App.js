@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import "./App.css";
+import "./style/App.css";
 import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import dagre from "cytoscape-dagre";
@@ -18,11 +18,11 @@ import {
   Dialog,
   IconButton,
 } from "@mui/material";
-import svgDave from "./DAVE-3.svg";
-import svgText from "./DAVE-2.svg";
-import svgFig from "./DAVE-1.svg";
-import ColorButton from "./styledButtons";
-import UserCredentialsDialog from "./UserCredentialsDialog";
+import svgDave from "./assets/DAVE-3.svg";
+import svgText from "./assets/DAVE-2.svg";
+import svgFig from "./assets/DAVE-1.svg";
+import ColorButton from "./components/styledButtons";
+import UserCredentialsDialog from "./components/Dialog";
 import StickyNote2OutlinedIcon from "@mui/icons-material/StickyNote2Outlined";
 import LooksOneOutlinedIcon from "@mui/icons-material/LooksOneOutlined";
 import LooksTwoOutlinedIcon from "@mui/icons-material/LooksTwoOutlined";
@@ -36,11 +36,11 @@ import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import { saveAs } from "file-saver";
 
-import { layoutdagre } from "./cytostyle";
-import { cytoscapeStylesheet } from "./cytostyle";
+import { layoutdagre } from "./style/cytostyle";
+import { cytoscapeStylesheet } from "./style/cytostyle";
 import contextMenus from "cytoscape-context-menus";
 import "cytoscape-context-menus/cytoscape-context-menus.css";
-import DaveCytoscape from "./Components/DaveCytoscape";
+import DaveCytoscape from "./components/DaveCytoscape";
 cytoscape.use(contextMenus);
 cytoscape.use(dagre);
 
