@@ -22,6 +22,7 @@
     "cytoscape-node-html-label": "^1.2.2",
     "cytoscape-popper": "^2.0.0",
     "file-saver": "^2.0.5",
+    "http-proxy-middleware": "^2.0.6",
     "primereact": "^8.0.0",
     "react": "^17.0.2",
     "react-cytoscape": "^1.0.6",
@@ -44,7 +45,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://127.0.0.1:5000",
   "browserslist": {
     "production": [
       ">0.2%",
