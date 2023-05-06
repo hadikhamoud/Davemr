@@ -10,7 +10,7 @@ from manager import GraphManager
 
 
 #initializing FLASK variables
-app = Flask(__name__, static_url_path='', static_folder='Dave-frontend/buildMe')
+app = Flask(__name__, static_url_path='/', static_folder='../client/build')
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
@@ -78,14 +78,18 @@ def reset_all():
 
 
 #serve main page
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder,'index.html')
+@app.route('/', defaults={'path': ''})
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 
 
 if __name__ == "__main__": 
-     app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
+    #  app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
+     app.run(host = '0.0.0.0',debug=False, port = 5000)
 
 
