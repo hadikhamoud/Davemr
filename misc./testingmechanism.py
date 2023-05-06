@@ -44,7 +44,7 @@ negation_list = ['denies', 'evaluate for', 'no signs of', 'no', "doesn't", 'cann
 
 negation_list = set(negation_list)
 
-def gettextscore(algos, data, inputofuser, algos1):
+def get_text_score(algos, data, inputofuser, algos1):
     tokenizedinput = nltk.word_tokenize(inputofuser)
     tokenizedinput = [word.lower() for word in tokenizedinput]
 
@@ -141,7 +141,7 @@ for note in test_notes:
     f.write('------------------------------- note '+str(i)+' ------------------------------------\n')
     f.write('Diagnosis Description: '+str(test_notes[note])+'\n')
     print('Our Diagnosis: ')
-    gettextscore(algos,data,note,algos1)
+    get_text_score(algos,data,note,algos1)
     alg = dict(sorted(algos.items(), key=lambda item: item[1]))
     keys = list(alg.keys())
     values = list(alg.values())
