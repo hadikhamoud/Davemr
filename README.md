@@ -7,21 +7,25 @@ A clinical note analysis application that relates input clinical notes entered b
 <br></br>
 
 
+![DAVE-3](https://user-images.githubusercontent.com/69105312/169825851-a1e20a1d-f05e-4c0b-b8f3-62235f6ddfeb.svg)
 
 
 ## Resources
 
 #### Graphs are extracted from:
-1-The Patient History: evidence-based Approach: ISBN 978-0-07-162494-7 
+1-The Patient History: evidence-based Approach: ISBN 978-0-07-162494-7
 
 2-Symptoms to Diagnosis: An Evidence Based Guide: ISBN 978-1-260-12111-7
+[]()
 
+---
 
-#### Graph Visualization is done using [Cytoscape.js] (https://js.cytoscape.org)
+- Graph Visualization is done using
+[Cytoscape.js] (https://js.cytoscape.org)
 
-#### Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon
-
-#### Distributional Similarity using DISCO linguatools [DISCO] (https://www.linguatools.de/disco/)
+- Clinical Notes extracted from American University of Beirut Medical Center and Rafic al Hariri Hospital Lebanon
+- Distributional Similarity using DISCO linguatools
+[DISCO] (https://www.linguatools.de/disco/)
 
 <br></br>
 
@@ -35,26 +39,19 @@ A clinical note analysis application that relates input clinical notes entered b
 ```python
 pip install -r requirements.txt
 ```
-3-remove Talisman, uncomment CORS, and install flask_cors for development environment
 
-```python
-pip install flask_cors
-```
+3- Within client environment, install node modules
+  ```javascript
+  npm install
+  ```
 
-4-use localhost for var SERVER_URL in frontend
 
+4 - Run client
 ```javascript
-var SERVER_URL = "0.0.0.0:5000"
+npm start
 ```
 
-
-
-
-
-
-
-
-
-
-
-![DAVE-3](https://user-images.githubusercontent.com/69105312/169825851-a1e20a1d-f05e-4c0b-b8f3-62235f6ddfeb.svg)
+5- Run server
+```python
+python app.py
+```

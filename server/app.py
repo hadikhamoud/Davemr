@@ -18,8 +18,13 @@ Session(app)
 
 #for development, we use flask_cors, and for production on Heroku, we use
 #flask Talisman to enforce https on the app level
-CORS(app)
-#Talisman(app, content_security_policy=None)
+
+if os.environ.get('FLASK_ENV') == 'development':
+    CORS(app)
+elif os.environ.get('FLASK_ENV') == 'production':
+    Talisman(app, content_security_policy=None)
+
+
 
 
 @app.before_request
@@ -88,8 +93,6 @@ def serve(path):
 
 
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     #  app.run(host = '0.0.0.0',debug=False, port=os.environ.get('PORT', 5000))
      app.run(host = '0.0.0.0',debug=False, port = 5000)
-
-

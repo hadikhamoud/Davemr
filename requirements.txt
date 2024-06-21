@@ -35,3 +35,4 @@ werkzeug==2.0.3
 requests
 openpyxl
 flask_talisman
+flask_cors
