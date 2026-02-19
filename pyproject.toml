@@ -1,0 +1,19 @@
+[project]
+name = "davemr"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "flask==3.1.0",
+  "flask-cors==5.0.1",
+  "flask-talisman==1.1.0",
+  "gunicorn==23.0.0",
+  "nltk==3.9.1",
+  "numpy==2.2.3",
+  "openpyxl==3.1.5",
+  "pandas==2.2.3",
+  "pyspellchecker==0.8.2",
+  "requests==2.32.3",
+]
+
+[tool.uv]
+package = false

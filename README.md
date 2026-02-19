@@ -16,7 +16,7 @@ A clinical note analysis application that relates input clinical notes entered b
 1-The Patient History: evidence-based Approach: ISBN 978-0-07-162494-7
 
 2-Symptoms to Diagnosis: An Evidence Based Guide: ISBN 978-1-260-12111-7
-[]()
+
 
 ---
 
@@ -32,26 +32,37 @@ A clinical note analysis application that relates input clinical notes entered b
 
 ## **Installation**
 
-1- clone current repository
+1- Clone current repository.
 
-2- install requirements.txt folder
+2- Install Python dependencies with uv.
 
-```python
-pip install -r requirements.txt
+```bash
+uv sync
 ```
 
-3- Within client environment, install node modules
-  ```javascript
-  npm install
-  ```
+3- Install frontend dependencies with pnpm.
 
-
-4 - Run client
-```javascript
-npm start
+```bash
+pnpm --dir client install
 ```
 
-5- Run server
-```python
-python app.py
+4- Build the frontend (served by Flask from `client/build`).
+
+```bash
+pnpm --dir client build
 ```
+
+5- Run server.
+
+```bash
+uv run gunicorn --chdir server app:app --bind 0.0.0.0:5000
+```
+
+## **Coolify Deployment (single service)**
+
+This repo now deploys as one service (no docker-compose):
+
+- Coolify should use the root `Dockerfile`.
+- The container builds the React client with Node.js 23 + pnpm.
+- The runtime uses Python + uv and serves the built client via Flask/Gunicorn.
+- No `docker-compose.yml` is required.
