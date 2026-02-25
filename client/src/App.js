@@ -95,9 +95,15 @@ function App() {
   const [finalDataUpdateCounter, setfinalDataUpdateCounter] = useState(0);
   const [clearGraph, setClearGraph] = useState(null);
 
-  const interval = setInterval(function () {
-    setStart(false);
-  }, 1000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setStart(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   function displayGraph1() {
     setShowGraph1(false);
@@ -377,7 +383,6 @@ function App() {
       }
     }
   }
-  console.log(cytoRef);
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });

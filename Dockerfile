@@ -27,7 +27,7 @@ RUN uv sync --frozen --no-dev
 COPY server/ ./server/
 COPY --from=client-builder /app/client/build ./client/build
 
-RUN uv run python -m nltk.downloader punkt wordnet
+RUN uv run python -m nltk.downloader punkt punkt_tab wordnet
 
 EXPOSE 5000
 
